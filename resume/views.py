@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
 
-def index_page():
-    pass
+def index_page(request):
+    return render(request, 'resume/index.html')
