@@ -11,7 +11,7 @@ class IndexViewTest(TestCase):
         index = resolve('/resume/')
         self.assertEqual(index.func, index_page)
 
-    def test_app_root_render_correct_html(self):
+    def test_index_page_render_correct_html(self):
         request = HttpRequest()
         response = index_page(request)
         expected_html = render_to_string('resume/index.html')
