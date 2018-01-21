@@ -2,4 +2,11 @@
 
 {% block content %}
 resume/index.html
+  <form action="" method=POST>
+    {% csrf_token %}
+    <table>
+      {{ form }}
+    </table>
+    <input type="submit"/>
+  </form>
 {% endblock %}
