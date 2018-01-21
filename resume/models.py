@@ -12,3 +12,6 @@ class Resume(models.Model):
     award = models.TextField(blank=True)
     language = models.TextField(blank=True)
     link = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name

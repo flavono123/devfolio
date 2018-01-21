@@ -39,3 +39,7 @@ class ResumeModelTest(TestCase):
         self.assertEqual(first_saved_resume, first_resume)
         self.assertEqual(second_saved_resume, second_resume)
 
+    def test_resumes_print_its_name(self):
+        resume = Resume(name='테스트할 이름', base_info='abc')
+
+        self.assertEqual(str(resume), '테스트할 이름')
