@@ -5,6 +5,7 @@ from .models import Resume
 
 
 def index_page(request):
+    resume_list = Resume.objects.all()
     if request.method == 'POST':
         form = ResumeForm(request.POST, request.FILES)
         if form.is_valid():
@@ -14,6 +15,7 @@ def index_page(request):
         form = ResumeForm()
     return render(request, 'resume/index.html', {
         'form': form,
+        'resume_list': resume_list,
     })
 
 def list(request):

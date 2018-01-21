@@ -3,12 +3,32 @@
 
 {% block content %}
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-8">
     <form action="" method=POST>
       {% csrf_token %}
       {% bootstrap_form form %}
       <input type="submit" class="btn btn-success btn-lg btn-block" value="Save"/>
     </form>
+  </div>
+  <div class="col-sm-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Create at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for resume in resume_list %}
+          <tr>
+            <td>{{ resume.id }}</td>
+            <td><a href="">{{ resume.name }}</a><small>by {{ user }}</small></td>  
+            <td>{{ resume.created_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}
