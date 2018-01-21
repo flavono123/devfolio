@@ -24,17 +24,21 @@ class IndexViewTest(TestCase):
 class ResumeModelTest(TestCase):
 
     def test_saving_resumes(self):
-        first_resume = Resume(name='에잇퍼센트', base_info='홍한석\n010-6434-3473\nflavono123@gmail.com')
+        first_resume = Resume(name='에잇퍼센트', 
+                              base_info='홍한석\n010-6434-3473\nflavono123@gmail.com')
         first_resume.save()
-        second_resume = Resume(name='아테나스랩', base_info='홍한석\n010-6434-3473\nflavono123@gmail.com')
+        second_resume = Resume(name='아테나스랩', 
+                                    base_info='홍한석\n010-6434-3473\nflavono123@gmail.com')
         second_resume.save()
-       
-        saved_items = Resume.objects.all()
+        
+        # All resume is saved?
+        saved_resumes = Resume.objects.all()
 
-        self.assertEqual(saved_items.count(), 2)
+        self.assertEqual(saved_resumes.count(), 2)
 
-        first_saved_resume = saved_items[0] 
-        second_saved_resume = saved_items[1]
+        # Each resume is saved?
+        first_saved_resume = saved_resumes[0]
+        second_saved_resume = saved_resumes[1]
 
         self.assertEqual(first_saved_resume, first_resume)
         self.assertEqual(second_saved_resume, second_resume)
