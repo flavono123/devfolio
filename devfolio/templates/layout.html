@@ -1,15 +1,72 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock %}Devfolio</title>
+
+  <!-- 기본 부트스트랩 -->
+  <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.min.css' %}">
+  <!-- 부트와치 테마 -->
+  <link rel="stylesheet" href="{% static 'bootswatch/sketchy/bootstrap.min.css' %}">
+  <!-- 커스텀 스타일 -->
+  <link rel="stylesheet" href="{% static 'custom.css' %}">
 </head>
+
 <body>
-  <h1>Devfolio</h1>
-  <br/>
-  {% block content %}
-  {% endblock %}
-  <br/>
-  &copy; 2018. flavono123.
+  <header>
+    <!-- 내비바 -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+      <a class="navbar-brand" href="#">Devfolio</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 본문 -->
+  <div class="container">
+    <h1>Devfolio</h1>
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted">&copy; 2018. flavono123.</span>
+    </div>
+  </footer>
+
+  <!-- JS 로드 -->
+  <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
