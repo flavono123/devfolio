@@ -8,6 +8,7 @@ from datetime import timedelta
 
 from .views import index_page
 from .models import Resume
+from .forms import ResumeForm
 
 
 class IndexViewTest(TestCase):
@@ -66,3 +67,18 @@ class ResumeModelTest(TestCase):
 
         # Resume prints its name correct? 
         self.assertEqual(str(resume), '테스트할 이름')
+
+class ResumeFormTest(TestCase):
+    
+    def _test_resume_form_save_a_resume(self):
+        resume = Resume(name='폼 테스트 이력서', base_info='def')
+        form = ResumeForm(instance=resume)
+        if form.is_valid:
+            form.save()
+        else:
+            return
+
+        saved_resume = Resume.obejcts.all().get(name='폼 테스트 이력서')
+
+        self.assertEqual(form.base_info, saved_resume.base_info)
+        self.assertNotEqual(form.created_at, saved_resume.created_at)
