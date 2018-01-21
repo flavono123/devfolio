@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 from os.path import join, dirname, abspath
 
-BASE_DIR = dirname(dirname(abspath(__file__)))
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 
 # Build paths inside the project like this: ROOT('path', 'from', 'root', ...)
 ROOT = lambda *args: join(BASE_DIR, *args)
