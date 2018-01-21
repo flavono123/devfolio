@@ -12,6 +12,8 @@ class Resume(models.Model):
     award = models.TextField(blank=True)
     language = models.TextField(blank=True)
     link = models.TextField(blank=True)
+    # auto fields
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
