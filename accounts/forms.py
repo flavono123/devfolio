@@ -18,18 +18,38 @@ class LoginForm(AuthenticationForm):
 
     
 class SignupForm(UserCreationForm):
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'inputPassword',
+        'class': 'form-control',
+        'placeholder': 'Password',
+    }))
+
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'id': 'inputPasswordConfirm',
+        'class': 'form-control',
+        'placeholder': 'Password Confirm',
+    }))
     class Meta(UserCreationForm.Meta):
         #TODO: make the first and the last name to essential fields / blank=False
         fields =('email', 'first_name', 'last_name') + UserCreationForm.Meta.fields 
         widgets = {
             'first_name': forms.TextInput(attrs={
+                'id': 'inputFirstName',
+                'class': 'form-control',
                 'placeholder': 'First Name',
+                'required': True,
             }),
             'last_name': forms.TextInput(attrs={
+                'id': 'inputLastName',
+                'class': 'form-control',
                 'placeholder': 'Last Name',
+                'required': True,
             }),
             'username': forms.EmailInput(attrs={
+                'id': 'inputEmail',
+                'class': 'form-control',
                 'placeholder': 'Email',
+                'autofocus': True,
             }),
             # TODO: placeholders for password and confirm
             'email': forms.HiddenInput,     
