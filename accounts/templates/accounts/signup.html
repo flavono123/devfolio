@@ -1,23 +1,6 @@
-{% extends 'accounts/layout.html' %}
+{% extends 'accounts/sign_layout.html' %}
 
-
-{% block content %}
-<div class="row justify-content-center">
-  <div class="col-4">
-    <form class="form-signin" action="" method="post">
-      {% csrf_token %}
-      <div class="text-center mb-4">
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      </div>
-      {% for field in form %}
-        <div class="form-label-group">
-          {{ field }}
-          <br/>
-        </div>
-      {% endfor %}
-      <input type="submit" class="btn btn-lg btn-outline-secondary btn-block" value="Sign up"/>
-      <a href="{% url 'login' %}" class="btn btn-sm btn-link btn-block">Sign in</a>
-    </form>
-  </div>
-</div>
+{% block button %}
+<input type="submit" class="btn btn-lg btn-outline-secondary btn-block" value="Sign up"/>
+<a href="{% url 'login' %}" class="btn btn-sm btn-link btn-block">Sign in</a>
 {% endblock %}
