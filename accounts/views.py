@@ -6,12 +6,12 @@ from .forms import SignupForm
 
 def signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST, initial={'username': 'temp'})
+        form = SignupForm(request.POST) 
         if form.is_valid():
             form.save()
             return redirect(settings.LOGIN_URL)
     else:
-        form = SignupForm(request.POST)
+        form = SignupForm()
     return render(request, 'accounts/signup.html', {
         'form': form,
     })
