@@ -1,7 +1,18 @@
-<form action="" method="post">
+{% extends 'accounts/layout.html' %}
+
+
+{% block content %}
+<form class="form-signin" action="" method="post">
   {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit"/>
+  <div class="text-center mb-4">
+    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  </div>
+  <div class="form-label-group">
+    {{ form.username }}
+  </div>
+  <div class="form-label-group">
+    {{ form.password }}
+  </div>
+  <input  type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in"/>
 </form>
+{% endblock %}
