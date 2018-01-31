@@ -1,7 +1,32 @@
+{% extends 'resume/layout.html' %}
+
+{% block content %}
 <form action="" method="post">
-  {% for form in formset %}
+  {% csrf_token %}
+  {{ formset.management_form }}
+  <div id="form_set">
+    {% for form in formset %}
+      <table>
+        {{ form.as_table }}
+      </table>
+    {% endfor %}
+  </div>
+  <input type="submit"/>
+  <div id="empty_form" style="display: none">
     <table>
-      {{ form.as_table }}
+      {{ formset.empty_form.as_table }} 
     </table>
-  {% endfor %}
+  </div>
+  <input type="button" value="+" class="add-form"/>
 </form>
+{% endblock %}
+
+{% block script %}
+<script>
+  $('.add-form').click(function() {
+    var form_idx = $('#id_{{ formset.prefix }}-TOTAL_FORMS').val();
+    $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+    $('#id_{{ formset.prefix }}-TOTAL_FORMS').val(parseInt(form_idx)+1);
+  })    
+</script>
+{% endblock %}
