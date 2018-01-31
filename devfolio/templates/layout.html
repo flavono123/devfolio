@@ -6,15 +6,18 @@
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock %}Devfolio</title>
 
+  <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Damion">
   <!-- 기본 부트스트랩 -->
   <!--
   <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.min.css' %}">
   -->
   <!-- 부트와치 테마 -->
-  <link rel="stylesheet" href="{% static 'bootswatch/superhero/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootswatch/solar/bootstrap.min.css' %}">
   <!-- 커스텀 스타일 -->
   <link rel="stylesheet" href="{% static 'custom/footer.css' %}">
   <link rel="stylesheet" href="{% static 'custom/navbrand.css' %}">
+  <link rel="stylesheet" href="{% static 'custom/logo.css' %}">
   <style>
   svg {
     width: 80px;
@@ -27,8 +30,8 @@
   {%if user.is_authenticated %}
   <!-- 내비바 -->
   <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-      <a class="navbar-brand" href="#">Devfolio</a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand logo" href="#">Devfolio</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
