@@ -23,7 +23,6 @@ def index_page(request):
 
     return render(request, 'resume/index.html', {
         'form': form,
-        'resume_list': resume_list,
         'svg_dict': svg_dict,
     })
 
