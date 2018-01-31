@@ -63,7 +63,44 @@
   <div class="empty-form" style="display: none">
     <div class="alert alert-disimissible fade show text-secondary" role="alert">
       <table class="form">
-        {{ formset.empty_form.as_table }} 
+        {% with formset.empty_form as form %} 
+          <!-- Non field errors -->
+          {% for error in form.non_field_errors %}
+            <p class="text-danger">
+              {{ error }}
+            </p>
+          {% endfor %}
+
+          <!-- Hidden Fields -->
+          {% for field in form.hidden_fields %}
+            {{ field }}
+          {% endfor %}
+
+          <!-- Visible Fields -->
+          {% for field in form.visible_fields %}
+            <div class="form-group">
+            {% if field.name == 'currently_employed' %}
+            <div class="custom-control custom-checkbox">
+            {% endif %}
+              {{ field }}
+              {% if field.name == 'currently_employed' %}
+              <label class="custom-control-label" for="{{ field.auto_id }}">
+                {{ field.label }}
+              </label>
+              {% endif %}
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="text-danger">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              {% endif %}
+            {% if field.name == 'currently_employed' %}
+            </div>
+            {% endif %}
+            </div>
+          {% endfor %}
+        {% endwith %}
       </table>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
