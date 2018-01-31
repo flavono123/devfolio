@@ -13,3 +13,4 @@ class CareerForm(forms.ModelForm):
     class Meta:
         model = Career
         fields = '__all__'
+

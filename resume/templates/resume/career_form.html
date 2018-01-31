@@ -1,0 +1,7 @@
+<form action="" method="post">
+  {% for form in formset %}
+    <table>
+      {{ form.as_table }}
+    </table>
+  {% endfor %}
+</form>

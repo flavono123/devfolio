@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
 from django.conf import settings
+from django.forms import formset_factory
+from django.shortcuts import render, redirect
 
 import json
 
-from .forms import ResumeForm
+from .forms import ResumeForm, CareerForm
 from .models import Resume
 
 
@@ -26,8 +27,22 @@ def index_page(request):
         'svg_dict': svg_dict,
     })
 
-def list(request):
+def resume_list(request):
     resume_list = Resume.objects.all()
     return render(request, 'resume/list.html', {
         'resume_list': resume_list,
     })
+
+def career_form(request):
+    CareerFormSet = formset_factory(CareerForm, max_num=5)
+    if request.method == 'POST':
+        formset = CareerFormSet(request.POST, prefix='career')
+        if formset.is_valid():
+            formset.save()
+            pass
+    else:
+        formset = CareerFormSet(prefix='career')
+    return render(request, 'resume/career_form.html', {
+        'formset': formset,
+    })
+
