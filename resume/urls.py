@@ -11,4 +11,7 @@ urlpatterns = [
     
     
     path('career/new', views.career_form, name='career_form'),
+    path('education/new', views.education_form, name='education_form'),
+    path('award/new', views.award_form, name='award_form'),
+    path('link/new', views.link_form, name='link_form'),
 ]

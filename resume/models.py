@@ -6,10 +6,6 @@ class Resume(models.Model):
     # essential fields
     name = models.CharField(max_length=25)
     base_info = models.TextField()
-    # optional fields
-    education = models.TextField(blank=True)
-    award = models.TextField(blank=True)
-    link = models.TextField(blank=True)
     # auto fields
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -18,9 +14,35 @@ class Resume(models.Model):
 
 class Career(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
-    company = models.CharField(max_length=50)
-    position = models.CharField(max_length=50)
     since = models.DateField()
     until = models.DateField(blank=True)
     currently_employed = models.BooleanField()
+    company = models.CharField(max_length=50)
+    position = models.CharField(max_length=50)
+    achivement = models.TextField(default='')
     
+class Education(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    school_name = models.CharField(max_length=50)
+    major = models.CharField(max_length=50)
+    research_content = models.TextField()
+    since = models.DateField()
+    until = models.DateField(blank=True)
+    currently_attending = models.BooleanField()
+
+class Award(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    activity_name = models.CharField(max_length=50)
+    detail = models.TextField()
+    at = models.DateField()
+
+class Link(models.Model):
+    resume = models.OneToOneField(Resume, on_delete=models.CASCADE)
+    email = models.EmailField()
+    github = models.CharField(max_length=50, blank=True)
+    stackoverflow = models.CharField(max_length=50, blank=True)
+    linkedin = models.CharField(max_length=50, blank=True)
+    facebook = models.CharField(max_length=50, blank=True)
+    twitter = models.CharField(max_length=50, blank=True)
+    google_plus = models.CharField(max_length=50, blank=True)
+    blog = models.URLField(blank=True)

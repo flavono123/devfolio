@@ -1,113 +1,135 @@
 {% extends 'resume/layout.html' %}
 
 {% block content %}
-<form action="" method="post">
-  {% csrf_token %}
-  {{ formset.management_form }}
-  <a class="add-form btn btn-default">
-    <i class="fas fa-plus"></i>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <a class="add-form btn btn-default">
+      <i class="fas fa-plus"></i>
+    
+      {# FIXME: using bootstrap class #}
+      <span style="font-size: 2em;">{{ formset.prefix | title }}</span>
+    </a>
   
-    {# FIXME: using bootstrap class #}
-    <span style="font-size: 2em;">{{ formset.prefix | title }}</span>
-  </a>
-  </input>
-  <div class="form-set">
-    {% for form in formset %}
+    <div class="form-set">
+    {% for error in formset.non_form_errors %} 
+      <p class="text-danger">
+        {{ error }}
+      </p>
+    {% endfor %}
+  
+      {% for form in formset %}
+        <div class="alert alert-disimissible fade show text-secondary" role="alert">
+          <table class="form">
+            <!-- Non field errors -->
+            {% for error in form.non_field_errors %}
+              <p class="text-danger">
+                {{ error }}
+              </p>
+            {% endfor %}
+  
+            <!-- Hidden Fields -->
+            {% for field in form.hidden_fields %}
+              {{ field }}
+            {% endfor %}
+  
+            <!-- Visible Fields -->
+            <div class="row">
+              {% for field in form.visible_fields %}
+                {% if field.name in date_field_list %}
+                <div class="col-sm-2">
+                {% else %}
+                <div class="col-sm-8">
+                {% endif %}
+                  <div class="form-group">
+                  {% if field.name == 'currently_employed' %}
+                  <div class="custom-control custom-checkbox">
+                  {% endif %}
+                    {{ field }}
+                    {% if field.name == 'currently_employed' %}
+                    <label class="custom-control-label" for="{{ field.auto_id }}">
+                      {{ field.label }}
+                    </label>
+                    {% endif %}
+                    {% if field.errors %}
+                      {% for error in field.errors %}
+                        <p class="text-danger">
+                          {{ error }}
+                        </p>
+                      {% endfor %}
+                    {% endif %}
+                    {% if field.name == 'currently_employed' %}
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </table>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+    <input type="submit"/>
+  
+    <div class="empty-form" style="display: none">
       <div class="alert alert-disimissible fade show text-secondary" role="alert">
         <table class="form">
-          <!-- Non field errors -->
-          {% for error in form.non_field_errors %}
-            <p class="text-danger">
-              {{ error }}
-            </p>
-          {% endfor %}
-
-          <!-- Hidden Fields -->
-          {% for field in form.hidden_fields %}
-            {{ field }}
-          {% endfor %}
-
-          <!-- Visible Fields -->
-          {% for field in form.visible_fields %}
-            <div class="form-group">
-            {% if field.name == 'currently_employed' %}
-            <div class="custom-control custom-checkbox">
-            {% endif %}
+          {% with formset.empty_form as form %} 
+            <!-- Non field errors -->
+            {% for error in form.non_field_errors %}
+              <p class="text-danger">
+                {{ error }}
+              </p>
+            {% endfor %}
+  
+            <!-- Hidden Fields -->
+            {% for field in form.hidden_fields %}
               {{ field }}
-              {% if field.name == 'currently_employed' %}
-              <label class="custom-control-label" for="{{ field.auto_id }}">
-                {{ field.label }}
-              </label>
-              {% endif %}
-              {% if field.errors %}
-                {% for error in field.errors %}
-                  <p class="text-danger">
-                    {{ error }}
-                  </p>
-                {% endfor %}
-              {% endif %}
-            {% if field.name == 'currently_employed' %}
+            {% endfor %}
+  
+            <!-- Visible Fields -->
+            <div class="row">
+              {% for field in form.visible_fields %}
+                {% if field.name in date_field_list %}
+                <div class="col-sm-2">
+                {% else %}
+                <div class="col-sm-8">
+                {% endif %}
+                  <div class="form-group">
+                    {% if field.name == 'currently_employed' %}
+                      <div class="custom-control custom-checkbox">
+                    {% endif %}
+                      {{ field }}
+                      {% if field.name == 'currently_employed' %}
+                      <label class="custom-control-label" for="{{ field.auto_id }}">
+                        {{ field.label }}
+                      </label>
+                      {% endif %}
+                      {% if field.errors %}
+                        {% for error in field.errors %}
+                          <p class="text-danger">
+                            {{ error }}
+                          </p>
+                        {% endfor %}
+                      {% endif %}
+                    {% if field.name == 'currently_employed' %}
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
             </div>
-            {% endif %}
-            </div>
-          {% endfor %}
+          {% endwith %}
         </table>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-    {% endfor %}
-  </div>
-  <input type="submit"/>
-
-  <div class="empty-form" style="display: none">
-    <div class="alert alert-disimissible fade show text-secondary" role="alert">
-      <table class="form">
-        {% with formset.empty_form as form %} 
-          <!-- Non field errors -->
-          {% for error in form.non_field_errors %}
-            <p class="text-danger">
-              {{ error }}
-            </p>
-          {% endfor %}
-
-          <!-- Hidden Fields -->
-          {% for field in form.hidden_fields %}
-            {{ field }}
-          {% endfor %}
-
-          <!-- Visible Fields -->
-          {% for field in form.visible_fields %}
-            <div class="form-group">
-            {% if field.name == 'currently_employed' %}
-            <div class="custom-control custom-checkbox">
-            {% endif %}
-              {{ field }}
-              {% if field.name == 'currently_employed' %}
-              <label class="custom-control-label" for="{{ field.auto_id }}">
-                {{ field.label }}
-              </label>
-              {% endif %}
-              {% if field.errors %}
-                {% for error in field.errors %}
-                  <p class="text-danger">
-                    {{ error }}
-                  </p>
-                {% endfor %}
-              {% endif %}
-            {% if field.name == 'currently_employed' %}
-            </div>
-            {% endif %}
-            </div>
-          {% endfor %}
-        {% endwith %}
-      </table>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
-  </div>
-</form>
+  </form>
 {% endblock %}
 
 {% block script %}
