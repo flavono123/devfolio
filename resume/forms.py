@@ -10,6 +10,15 @@ class ResumeForm(forms.ModelForm):
 
 
 class CareerForm(forms.ModelForm):
+    since = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '0000.0',
+    }))
+    until = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '0000.0',
+    }))
+
     class Meta:
         model = Career
         fields = '__all__'
@@ -26,14 +35,6 @@ class CareerForm(forms.ModelForm):
             'achivement': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Major Achievement',
-            }),
-            'since': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': '0000.0',
-            }),
-            'until': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': '0000.0',
             }),
             'currently_employed': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input'
