@@ -3,15 +3,19 @@
 {% block content %}
   <form action="" method="post">
     {% csrf_token %}
+    <!-- CareerFormset Data -->
     {{ formset.management_form }}
-    <a class="add-form btn btn-default">
+
+    <!-- Add Career Button -->
+    <a id="add-career" class="btn btn-default">
       <i class="fas fa-plus"></i>
-    
       {# FIXME: using bootstrap class #}
       <span style="font-size: 2em;">{{ formset.prefix | title }}</span>
     </a>
-  
+ 
+    <!-- Career Formset -->
     <div class="form-set">
+    <!-- Career Formset: Non Form Errors -->
     {% for error in formset.non_form_errors %} 
       <p class="text-danger">
         {{ error }}
@@ -19,125 +23,163 @@
     {% endfor %}
   
       {% for form in formset %}
-        <div class="alert alert-disimissible fade show text-secondary" role="alert">
-          <table class="form">
-            <!-- Non field errors -->
-            {% for error in form.non_field_errors %}
-              <p class="text-danger">
-                {{ error }}
-              </p>
-            {% endfor %}
+      <!-- Career Forms -->
+        <div class="text-secondary career-form">
+          <!-- Non field errors -->
+          {% for error in form.non_field_errors %}
+            <p class="text-danger">
+              {{ error }}
+            </p>
+          {% endfor %}
   
-            <!-- Hidden Fields -->
-            {% for field in form.hidden_fields %}
-              {{ field }}
-            {% endfor %}
+          <!-- Hidden Fields -->
+          {% for field in form.hidden_fields %}
+            {{ field }}
+          {% endfor %}
   
-            <!-- Visible Fields -->
-            <div class="row">
-              {% for field in form.visible_fields %}
-                {% if field.name in date_field_list %}
-                <div class="col-sm-2">
-                {% else %}
-                <div class="col-sm-8">
-                {% endif %}
-                  <div class="form-group">
-                  {% if field.name == 'currently_employed' %}
+          <!-- Visible Fields -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+              {% if field.name in date_field_list %}
+              <div class="col-sm-2">
+              {% else %}
+              <div class="col-sm-8">
+              {% endif %}
+                <div class="form-group">
+                {% if field.name == 'currently_employed' %}
                   <div class="custom-control custom-checkbox">
+                {% endif %}
+                  {{ field }}
+                  {% if field.name == 'currently_employed' %}
+                  <label class="custom-control-label" for="{{ field.auto_id }}">
+                    {{ field.label }}
+                  </label>
                   {% endif %}
-                    {{ field }}
-                    {% if field.name == 'currently_employed' %}
-                    <label class="custom-control-label" for="{{ field.auto_id }}">
-                      {{ field.label }}
-                    </label>
-                    {% endif %}
-                    {% if field.errors %}
-                      {% for error in field.errors %}
-                        <p class="text-danger">
-                          {{ error }}
-                        </p>
-                      {% endfor %}
-                    {% endif %}
-                    {% if field.name == 'currently_employed' %}
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <p class="text-danger">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                  {% if field.name == 'currently_employed' %}
                     </div>
-                    {% endif %}
-                  </div>
+                  {% endif %}
                 </div>
-              {% endfor %}
-            </div>
-          </table>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+              </div>
+            {% endfor %}
+          </div>
+          <a class="btn btn-default close-career pull-right">
+            <i class="fas fa-minus"></i>
+          </a>
         </div>
       {% endfor %}
     </div>
-    <input type="submit"/>
+    <input id="save-career" type="submit"/>
   
     <div class="empty-form" style="display: none">
-      <div class="alert alert-disimissible fade show text-secondary" role="alert">
-        <table class="form">
-          {% with formset.empty_form as form %} 
-            <!-- Non field errors -->
-            {% for error in form.non_field_errors %}
-              <p class="text-danger">
-                {{ error }}
-              </p>
-            {% endfor %}
-  
-            <!-- Hidden Fields -->
-            {% for field in form.hidden_fields %}
-              {{ field }}
-            {% endfor %}
-  
-            <!-- Visible Fields -->
-            <div class="row">
-              {% for field in form.visible_fields %}
-                {% if field.name in date_field_list %}
-                <div class="col-sm-2">
-                {% else %}
-                <div class="col-sm-8">
+      <div class="text-secondary career-form">
+        {% with formset.empty_form as form %} 
+          <!-- Non field errors -->
+          {% for error in form.non_field_errors %}
+            <p class="text-danger">
+              {{ error }}
+            </p>
+          {% endfor %}
+
+          <!-- Hidden Fields -->
+          {% for field in form.hidden_fields %}
+            {{ field }}
+          {% endfor %}
+
+          <!-- Visible Fields -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+              {% if field.name in date_field_list %}
+              <div class="col-sm-2">
+              {% else %}
+              <div class="col-sm-8">
+              {% endif %}
+                <div class="form-group">
+                {% if field.name == 'currently_employed' %}
+                  <div class="custom-control custom-checkbox">
                 {% endif %}
-                  <div class="form-group">
-                    {% if field.name == 'currently_employed' %}
-                      <div class="custom-control custom-checkbox">
-                    {% endif %}
-                      {{ field }}
-                      {% if field.name == 'currently_employed' %}
-                      <label class="custom-control-label" for="{{ field.auto_id }}">
-                        {{ field.label }}
-                      </label>
-                      {% endif %}
-                      {% if field.errors %}
-                        {% for error in field.errors %}
-                          <p class="text-danger">
-                            {{ error }}
-                          </p>
-                        {% endfor %}
-                      {% endif %}
-                    {% if field.name == 'currently_employed' %}
-                    </div>
-                    {% endif %}
+                  {{ field }}
+                  {% if field.name == 'currently_employed' %}
+                  <label class="custom-control-label" for="{{ field.auto_id }}">
+                    {{ field.label }}
+                  </label>
+                  {% endif %}
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <p class="text-danger">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                {% if field.name == 'currently_employed' %}
                   </div>
+                {% endif %}
                 </div>
-              {% endfor %}
-            </div>
-          {% endwith %}
-        </table>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endwith %}
+        <a class="btn btn-default close-career">
+          <i class="fas fa-times"></i>
+        </a>
       </div>
     </div>
   </form>
 {% endblock %}
 
 {% block script %}
-<script>
-  $('.add-form').click(function() {
-    var form_idx = $('#id_{{ formset.prefix }}-TOTAL_FORMS').val();
-    $('.form-set').append($('.empty-form').html().replace(/__prefix__/g, form_idx));
-    $('#id_{{ formset.prefix }}-TOTAL_FORMS').val(parseInt(form_idx)+1);
-  })
-</script>
+  <script>
+    function updateFormsIndex(el, prefix, ndx) {
+      // FIXME: re-type own style
+      var id_regex = new RegExp('(' + prefix + '-\\d+)');
+      var replacement = prefix + '-' + ndx;
+      if ($(el).attr("for")) {
+        $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+      }
+      if (el.id) {
+        el.id = el.id.replace(id_regex, replacement);
+      }
+      if (el.name) {
+        el.name = el.name.replace(id_regex, replacement);
+      }
+    }
+    $('#save-career').click(function() {
+      $('select').filter(function() {
+        // FIXME: value(resume) should be passed from view
+        return this.id.match(/{{ formset.prefix }}-\\d+-resume/g);
+      }).val(1);
+    });
+    $('#add-career').click(function() {
+      var $totalFormsVal = $('#id_{{ formset.prefix }}-TOTAL_FORMS').val();
+      var $totalFormsNum = parseInt($totalFormsVal);
+      if($totalFormsNum < {{ formset.max_num }}) {
+        // Add from empty_form
+        $('.form-set').append($('.empty-form').html().replace(/__prefix__/g, $totalFormsVal));
+        $('#id_{{ formset.prefix }}-TOTAL_FORMS').val($totalFormsNum+1);
+      }
+    });
+    $(document).on('click', '.close-career', function(e) {
+      var $totalFormsVal = $('#id_{{ formset.prefix }}-TOTAL_FORMS').val();
+      var $totalFormsNum = parseInt($totalFormsVal);
+      if($totalFormsNum > 0) {
+        // Close the career form
+        $(this).parent('.career-form').remove();
+        var $careerForms = $('.career-form');
+        var $careerFormsNum = $careerForms.length - 1; // exclude empty_form
+        $('#id_{{ formset.prefix }}-TOTAL_FORMS').val($careerFormsNum);
+        for(var i = 0; i < $careerFormsNum; i++) {
+          $($careerForms.get(i)).find('.form-control').each(function() {
+            updateFormsIndex(this, '{{ formset.prefix }}', i)
+          });
+        }
+        return false;
+      }
+    });
+  </script>
 {% endblock %}

@@ -10,6 +10,9 @@ class ResumeForm(forms.ModelForm):
 
 
 class CareerForm(forms.ModelForm):
+    resume = forms.ModelChoiceField(queryset=Resume.objects.all(), widget=forms.Select(attrs={
+        'class': 'form-class',
+    }))
     since = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': '0000.0',
@@ -23,7 +26,6 @@ class CareerForm(forms.ModelForm):
         model = Career
         fields = '__all__'
         widgets = {
-            'resume': forms.HiddenInput,
             'company': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Company Name',
@@ -37,7 +39,7 @@ class CareerForm(forms.ModelForm):
                 'placeholder': 'Major Achievement',
             }),
             'currently_employed': forms.CheckboxInput(attrs={
-                'class': 'custom-control-input'
+                'class': 'custom-control-input form-control',
             }),
         }
 

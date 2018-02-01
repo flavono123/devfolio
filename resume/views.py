@@ -1,11 +1,11 @@
 from django.conf import settings
-from django.forms import formset_factory
+from django.forms.models import modelformset_factory
 from django.shortcuts import render, redirect
 
 import json
 
 from .forms import ResumeForm, CareerForm, EducationForm, AwardForm, LinkForm
-from .models import Resume
+from .models import Resume, Career
 
 
 def index_page(request):
@@ -34,17 +34,19 @@ def resume_list(request):
     })
 
 def career_form(request):
-    CareerFormSet = formset_factory(CareerForm, 
+    CareerFormSet = modelformset_factory(Career, 
+        form=CareerForm,
         max_num=5, 
-        validate_max=True, 
+        validate_max=True 
     )
     if request.method == 'POST':
         formset = CareerFormSet(request.POST, prefix='career')
         if formset.is_valid():
             formset.save()
-            pass
+            return redirect('resume:index')
     else:
         formset = CareerFormSet(prefix='career')
+
     return render(request, 'resume/career_form.html', {
         'formset': formset,
         'date_field_list': ['until', 'since'],
