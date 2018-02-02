@@ -15,7 +15,7 @@ class Resume(models.Model):
 class Career(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
     since = models.DateField()
-    until = models.DateField(blank=True)
+    until = models.DateField(blank=True, null=True)
     currently_employed = models.BooleanField()
     company = models.CharField(max_length=50)
     position = models.CharField(max_length=50)

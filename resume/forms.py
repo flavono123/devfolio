@@ -1,4 +1,6 @@
 from django import forms
+from django.utils import timezone
+from django.forms import ValidationError
 
 from .models import Resume, Career, Education, Award, Link
 
@@ -17,7 +19,7 @@ class CareerForm(forms.ModelForm):
         'class': 'form-control',
         'placeholder': '0000.0',
     }))
-    until = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
+    until = forms.DateField(input_formats=['%Y.%m'], required=False, widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': '0000.0',
     }))
@@ -42,6 +44,14 @@ class CareerForm(forms.ModelForm):
                 'class': 'custom-control-input form-control',
             }),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['currently_employed'] == True:
+            cleaned_data['until'] = timezone.now().date()
+        # Check since < until
+        if cleaned_data['since'] >= cleaned_data['until']:
+            raise ValidationError('"Until" should be later than "Since"')
 
 
 class EducationForm(forms.ModelForm):
