@@ -203,15 +203,15 @@
 
       if($totalFormsNum > 0) {
         // Close the career form
-        $(this).parent('.career-form').remove();
+        $(this).closest('.career-form').remove();
 
         var $careerForms = $('.career-form');
-        var $careerFormsNum = $careerForms.length - 1; // exclude empty_form
+        var $careerFormsNum = $careerForms.length - 1; 
 
-        $('#id_{{ formset.prefix }}-TOTAL_FORMS').val($careerFormsNum);
+        $('#id_{{ formset.prefix }}-TOTAL_FORMS').val($careerFormsNum); // exclude empty_form
 
         for(var i = 0; i < $careerFormsNum; i++) {
-          $($careerForms.get(i)).find('.form-control').each(function() {
+          $($careerForms.get(i)).find('.form-control, label').each(function() {
             updateFormsIndex(this, '{{ formset.prefix }}', i)
           });
         }

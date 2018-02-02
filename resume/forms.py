@@ -11,7 +11,7 @@ class ResumeForm(forms.ModelForm):
 
 class CareerForm(forms.ModelForm):
     resume = forms.ModelChoiceField(queryset=Resume.objects.all(), widget=forms.Select(attrs={
-        'class': 'form-class',
+        'class': 'form-control',
     }))
     since = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
         'class': 'form-control',
