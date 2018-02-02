@@ -6,7 +6,7 @@
     <!-- CareerFormset Data -->
     {{ formset.management_form }}
 
-    <!-- Add Career Button -->
+    <!-- Add button -->
     <a id="add-career" class="btn btn-default">
       <i class="fas fa-plus"></i>
       {# FIXME: using bootstrap class #}
@@ -40,21 +40,27 @@
           <!-- Visible Fields -->
           <div class="row">
             {% for field in form.visible_fields %}
+               
               {% if field.name in date_field_list %}
               <div class="col-sm-2">
               {% else %}
               <div class="col-sm-8">
               {% endif %}
+
                 <div class="form-group">
+
                 {% if field.name == 'currently_employed' %}
                   <div class="custom-control custom-checkbox">
                 {% endif %}
+
                   {{ field }}
+
                   {% if field.name == 'currently_employed' %}
                   <label class="custom-control-label" for="{{ field.auto_id }}">
                     {{ field.label }}
                   </label>
                   {% endif %}
+
                   {% if field.errors %}
                     {% for error in field.errors %}
                       <p class="text-danger">
@@ -62,24 +68,31 @@
                       </p>
                     {% endfor %}
                   {% endif %}
+
                   {% if field.name == 'currently_employed' %}
                     </div>
                   {% endif %}
+
                 </div>
               </div>
             {% endfor %}
           </div>
+
+          <!-- Close form button -->
           <a class="btn btn-default close-career pull-right">
             <i class="fas fa-minus"></i>
           </a>
         </div>
       {% endfor %}
     </div>
+
+    {# FIXME: tmp button for test #}
     <input id="save-career" type="submit"/>
   
     <div class="empty-form" style="display: none">
       <div class="text-secondary career-form">
         {% with formset.empty_form as form %} 
+ 
           <!-- Non field errors -->
           {% for error in form.non_field_errors %}
             <p class="text-danger">
@@ -95,21 +108,27 @@
           <!-- Visible Fields -->
           <div class="row">
             {% for field in form.visible_fields %}
+              
               {% if field.name in date_field_list %}
               <div class="col-sm-2">
               {% else %}
               <div class="col-sm-8">
               {% endif %}
+              
                 <div class="form-group">
+                
                 {% if field.name == 'currently_employed' %}
                   <div class="custom-control custom-checkbox">
                 {% endif %}
+                
                   {{ field }}
+                  
                   {% if field.name == 'currently_employed' %}
                   <label class="custom-control-label" for="{{ field.auto_id }}">
                     {{ field.label }}
                   </label>
                   {% endif %}
+                  
                   {% if field.errors %}
                     {% for error in field.errors %}
                       <p class="text-danger">
@@ -117,17 +136,22 @@
                       </p>
                     {% endfor %}
                   {% endif %}
+
                 {% if field.name == 'currently_employed' %}
                   </div>
                 {% endif %}
+                
                 </div>
               </div>
             {% endfor %}
           </div>
         {% endwith %}
+
+        <!-- Close form button -->
         <a class="btn btn-default close-career">
           <i class="fas fa-times"></i>
         </a>
+
       </div>
     </div>
   </form>
@@ -139,22 +163,29 @@
       // FIXME: re-type own style
       var id_regex = new RegExp('(' + prefix + '-\\d+)');
       var replacement = prefix + '-' + ndx;
+
+      // change label's for
       if ($(el).attr("for")) {
         $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
       }
+      // change id
       if (el.id) {
         el.id = el.id.replace(id_regex, replacement);
       }
+      // change name
       if (el.name) {
         el.name = el.name.replace(id_regex, replacement);
       }
     }
+    // FIXME: Collapsed in whole submit button
     $('#save-career').click(function() {
       $('select').filter(function() {
-        // FIXME: value(resume) should be passed from view
+        // FIXME: value(resume) should be passed from view !!!!
         return this.id.match(/{{ formset.prefix }}-\\d+-resume/g);
       }).val(1);
     });
+
+    // Add form
     $('#add-career').click(function() {
       var $totalFormsVal = $('#id_{{ formset.prefix }}-TOTAL_FORMS').val();
       var $totalFormsNum = parseInt($totalFormsVal);
@@ -164,20 +195,27 @@
         $('#id_{{ formset.prefix }}-TOTAL_FORMS').val($totalFormsNum+1);
       }
     });
+
+    // Remove form
     $(document).on('click', '.close-career', function(e) {
       var $totalFormsVal = $('#id_{{ formset.prefix }}-TOTAL_FORMS').val();
       var $totalFormsNum = parseInt($totalFormsVal);
+
       if($totalFormsNum > 0) {
         // Close the career form
         $(this).parent('.career-form').remove();
+
         var $careerForms = $('.career-form');
         var $careerFormsNum = $careerForms.length - 1; // exclude empty_form
+
         $('#id_{{ formset.prefix }}-TOTAL_FORMS').val($careerFormsNum);
+
         for(var i = 0; i < $careerFormsNum; i++) {
           $($careerForms.get(i)).find('.form-control').each(function() {
             updateFormsIndex(this, '{{ formset.prefix }}', i)
           });
         }
+
         return false;
       }
     });

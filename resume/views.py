@@ -33,23 +33,25 @@ def resume_list(request):
         'resume_list': resume_list,
     })
 
+
 def career_form(request):
     CareerFormSet = modelformset_factory(Career, 
         form=CareerForm,
         max_num=5, 
         validate_max=True 
     )
+    
     if request.method == 'POST':
         formset = CareerFormSet(request.POST, 
-                                prefix='career', 
-                                queryset=Career.objects.none()
+            prefix='career', 
+            queryset=Career.objects.none()
         )
         if formset.is_valid():
             formset.save()
             return redirect('resume:index')
     else:
         formset = CareerFormSet(prefix='career',
-                                queryset=Career.objects.none()
+            queryset=Career.objects.none()
         )
 
     return render(request, 'resume/career_form.html', {
