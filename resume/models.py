@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 # v 0.1.0 (Wanted style)
@@ -8,6 +9,11 @@ class Resume(models.Model):
     base_info = models.TextField()
     # auto fields
     created_at = models.DateTimeField(auto_now_add=True)
+    # Relational model: User
+    User = get_user_model()
+    superuser = User.objects.get(username='flavono123')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             default=superuser.id)
 
     def __str__(self):
         return self.name

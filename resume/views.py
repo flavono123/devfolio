@@ -28,7 +28,7 @@ def index_page(request):
     })
 
 def resume_list(request):
-    resume_list = Resume.objects.all()
+    resume_list = Resume.objects.filter(user=request.user.id)
     return render(request, 'resume/list.html', {
         'resume_list': resume_list,
     })
