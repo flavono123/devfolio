@@ -6,7 +6,15 @@
   <div class="col-12">
     <form action="" method=POST>
       {% csrf_token %}
+      
       {% bootstrap_form form %}
+      <!-- Non Field Errors 
+      {% for error in form.non_field_errors %}
+        <p class="text-danger">
+          {{ error }}
+        </p>
+      {% endfor %}
+      -->
       <input type="submit" class="btn btn-success btn-lg btn-block" value="Save"/>
     </form>
   </div>

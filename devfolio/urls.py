@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 
+
 urlpatterns = [
-    path('', lambda r: redirect('resume:index')),
+    path('', lambda r: redirect('login')),
 
     path('admin/', admin.site.urls),
     path('resume/', include('resume.urls')),
