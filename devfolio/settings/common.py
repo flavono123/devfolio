@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     ROOT('devfolio', 'static'),
 ]
+
+# Auth
+LOGIN_REDIRECT_URL = '/resume/list'
