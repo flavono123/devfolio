@@ -16,8 +16,9 @@
   <link rel="stylesheet" href="{% static 'bootswatch/solar/bootstrap.min.css' %}">
   <!-- 커스텀 스타일 -->
   <link rel="stylesheet" href="{% static 'custom/footer.css' %}">
-  <link rel="stylesheet" href="{% static 'custom/navbrand.css' %}">
+  <link rel="stylesheet" href="{% static 'custom/navbar.css' %}">
   <link rel="stylesheet" href="{% static 'custom/logo.css' %}">
+  <link rel="stylesheet" href="{% static 'custom/card-img.css' %}">
   <script defer src="{% static 'fontawesome-5/fontawesome-all.js' %}"></script>
   <style>
   svg {
@@ -58,8 +59,8 @@
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <a class="btn btn-outline-secondary my-2 my-sm-0" href="#" role="button">{{ user.first_name }} {{ user.last_name }}</a>
-          <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'logout' %}" role="button">Sign out</a>
+          <a class="btn btn-nav btn-outline-secondary my-2 my-sm-0" href="#" role="button">{{ user.first_name }} {{ user.last_name }}</a>
+          <a class="btn btn-nav btn-outline-secondary my-2 my-sm-0" href="{% url 'logout' %}" role="button"><i class="fas fa-sign-out-alt"></i> Sign out</a>
         </form>
       </div>
     </nav>

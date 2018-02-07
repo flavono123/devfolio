@@ -3,3 +3,7 @@
   left: 50%;
   position: absolute;
 }
+
+.btn-nav {
+  margin-left: 10px;
+}
