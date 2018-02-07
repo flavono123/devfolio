@@ -10,6 +10,15 @@ class ResumeForm(forms.ModelForm):
         model = Resume
         fields = '__all__'
         exclude = ('user',)
+        widgets = {
+            'phone_number': forms.TextInput(attrs={
+                'placeholder': 'Phone number ex) 010-0000-0000' 
+            }),
+            'about_me': forms.Textarea(attrs={
+                'rows': 5,    
+                'placeholder': 'Make your resume stand out with a simple self introduction. (3-5 lines recommended)',
+            }),
+        }
 
 
 class CareerForm(forms.ModelForm):
@@ -37,7 +46,7 @@ class CareerForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Task/Position',
             }),
-            'achivement': forms.Textarea(attrs={
+            'achievement': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Major Achievement',
             }),

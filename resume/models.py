@@ -1,22 +1,27 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.forms import ValidationError
+from django.core.validators import RegexValidator
 
+import re
 
 # v 0.1.0 (Wanted style)
 class Resume(models.Model):
     # essential fields
-    name = models.CharField(max_length=25)
-    base_info = models.TextField()
+    title = models.CharField(max_length=25)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=14, validators=[
+        RegexValidator(r'^01[016789]-[2-9]\d{2,3}-\d{4}$', message='Enter a valid phone number'),
+    ])
+    about_me = models.TextField()
     # auto fields
     created_at = models.DateTimeField(auto_now_add=True)
     # Relational model: User
     User = get_user_model()
-    superuser = User.objects.get(username='flavono123')
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             default=superuser.id)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 class Career(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
@@ -25,7 +30,7 @@ class Career(models.Model):
     currently_employed = models.BooleanField()
     company = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
-    achivement = models.TextField(default='')
+    achievement = models.TextField()
     
 class Education(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)

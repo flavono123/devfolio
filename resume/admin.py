@@ -5,7 +5,7 @@ from .models import Resume, Career
 
 @admin.register(Resume)
 class ResumeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'base_info', 'created_at']
+    list_display = ['title', 'email', 'phone_number', 'about_me', 'created_at']
         
 
 @admin.register(Career)
