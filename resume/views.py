@@ -8,11 +8,14 @@ from .forms import ResumeForm, CareerForm, EducationForm, AwardForm, LinkForm
 from .models import Resume, Career
 
 
-def index_page(request):
+def resume_form(request):
     if request.method == 'POST':
         form = ResumeForm(request.POST, request.FILES)
+        form.user = request.user
         if form.is_valid():
-            resume = form.save()
+            resume = form.save(commit=False)
+            resume.user = request.user
+            resume.save()
             return redirect('resume:list')
     else:
         form = ResumeForm()
@@ -20,9 +23,8 @@ def index_page(request):
     svg_json_path = settings.ROOT('devfolio', 'static', 'svg_codes.json')
     with open(svg_json_path, 'r') as f:
         svg_dict = json.load(f)
-    resume_list = Resume.objects.all()
 
-    return render(request, 'resume/index.html', {
+    return render(request, 'resume/form.html', {
         'form': form,
         'svg_dict': svg_dict,
     })
@@ -48,7 +50,7 @@ def career_form(request):
         )
         if formset.is_valid():
             formset.save()
-            return redirect('resume:index')
+            return redirect('resume:list')
     else:
         formset = CareerFormSet(prefix='career',
             queryset=Career.objects.none()
