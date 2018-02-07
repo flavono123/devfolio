@@ -1,7 +1,48 @@
-<ul>
-  {% for resume in resume_list %}
-  <li>
-    {{ resume.name }}  
-  </li>
-  {% endfor %}
-</ul>
+{% extends 'resume/layout.html' %}
+
+{% block content %}
+  <div class="album py-5">
+    
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow" style="height: 16rem;">
+          <div class="card-head fa-4x text-center">
+            <span class="fa-layers fa-fw">
+              <i class="fas fa-plus"></i>  
+            </span>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title text-success">
+              New Resume
+            </h5>
+          </div>
+        </div>
+      </div>
+      
+      {% for resume in resume_list %}
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow" style="height: 16rem;">
+          <div class="card-head fa-4x text-center">
+            <span class="fa-layers fa-fw">
+              <i class="fas fa-file-alt"></i>  
+            </span>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title text-success">
+              {{ resume.name }}  
+            </h5>
+            <p class="card-text text-default text-left">
+              {{ resume.created_at | date:'Y.m.d' }}
+            </p>
+            <a class="btn btn-default float-right" href="">Edit</a>
+            <a class="btn btn-default float-right" href="">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+{% endblock %}
