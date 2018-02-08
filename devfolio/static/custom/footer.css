@@ -3,7 +3,7 @@ html {
   min-height: 100%;
 }
 body {
-  margin-top: 60px; /* Margin top by navbar height */
+  margin-top: 70px; /* Margin top by navbar height */
   margin-bottom: 60px; /* Margin bottom by footer height */
 }
 .footer {
