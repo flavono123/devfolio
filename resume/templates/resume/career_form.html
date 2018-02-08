@@ -2,7 +2,7 @@
     {{ formset.management_form }}
 
     <!-- Add button -->
-    <a id="add-career" class="btn btn-default">
+    <a id="add-{{ formset.prefix }}" class="btn btn-default">
       <i class="fas fa-plus"></i>
       {# FIXME: using bootstrap class #}
       <span style="font-size: 2em;">{{ formset.prefix | title }}</span>
@@ -19,7 +19,7 @@
   
       {% for form in formset %}
       <!-- Career Forms -->
-        <div class="text-secondary career-form">
+        <div class="text-secondary {{ formset.prefix }}-form">
           <!-- Non field errors -->
           {% for error in form.non_field_errors %}
             <p class="text-danger">
@@ -74,15 +74,15 @@
           </div>
 
           <!-- Close form button -->
-          <a class="btn btn-default close-career pull-right">
+          <a class="btn btn-default close-{{ formset.prefix }} pull-right">
             <i class="fas fa-times"></i>
           </a>
         </div>
       {% endfor %}
     </div>
   
-    <div class="empty-form" style="display: none">
-      <div class="text-secondary career-form">
+    <div class="empty-{{ formset.prefix }}-form" style="display: none">
+      <div class="text-secondary {{ formset.prefix }}-form">
         {% with formset.empty_form as form %} 
  
           <!-- Non field errors -->
@@ -140,7 +140,7 @@
         {% endwith %}
 
         <!-- Close form button -->
-        <a class="btn btn-default close-career">
+        <a class="btn btn-default close-{{ formset.prefix }}">
           <i class="fas fa-times"></i>
         </a>
 
