@@ -1,0 +1,36 @@
+<script>
+  // Add form
+  $(document).on('click', '#add-{{ education_formset.prefix }}', function(e) {
+    var $totalFormsVal = $('#id_{{ education_formset.prefix }}-TOTAL_FORMS').val();
+    var $totalFormsNum = parseInt($totalFormsVal);
+    if($totalFormsNum < {{ education_formset.max_num }}) {
+      // Add from empty_form
+      $('.{{ education_formset.prefix }}-formset').append($('.empty-{{ education_formset.prefix }}-form').html().replace(/__prefix__/g, $totalFormsVal));
+      $('#id_{{ education_formset.prefix }}-TOTAL_FORMS').val($totalFormsNum+1);
+    }
+  });
+
+  // Close form
+  $(document).on('click', '.close-{{ education_formset.prefix }}', function(e) {
+    var $totalFormsVal = $('#id_{{ education_formset.prefix }}-TOTAL_FORMS').val();
+    var $totalFormsNum = parseInt($totalFormsVal);
+
+    if($totalFormsNum > 0) {
+      // Close the form
+      $(this).closest('.{{ education_formset.prefix }}-form').remove();
+
+      var ${{ education_formset.prefix }}Forms = $('.{{ education_formset.prefix }}-form');
+      var ${{ education_formset.prefix }}FormsNum = ${{ education_formset.prefix }}Forms.length - 1; 
+
+      $('#id_{{ education_formset.prefix }}-TOTAL_FORMS').val(${{ education_formset.prefix }}FormsNum); // exclude empty_form
+
+      for(var i = 0; i < ${{ education_formset.prefix }}FormsNum; i++) {
+        $(${{ education_formset.prefix }}Forms.get(i)).find('.form-control, label').each(function() {
+          updateFormsIndex(this, '{{ education_formset.prefix }}', i)
+        });
+      }
+
+      return false;
+    }
+  });
+</script>

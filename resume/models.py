@@ -34,12 +34,12 @@ class Career(models.Model):
     
 class Education(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    since = models.DateField()
+    until = models.DateField(blank=True, null=True)
+    currently_attending = models.BooleanField()
     school_name = models.CharField(max_length=50)
     major = models.CharField(max_length=50)
     research_content = models.TextField()
-    since = models.DateField()
-    until = models.DateField(blank=True)
-    currently_attending = models.BooleanField()
 
 class Award(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)

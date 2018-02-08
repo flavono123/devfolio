@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 import json
 
 from .forms import ResumeForm, CareerForm, EducationForm, AwardForm, LinkForm
-from .models import Resume, Career
+from .models import Resume, Career, Education
 
 
 def resume_form(request):
@@ -17,28 +17,46 @@ def resume_form(request):
         extra=0
     )
 
+    EducationFormSet = modelformset_factory(Education, 
+        form=EducationForm,
+        max_num=5, 
+        validate_max=True,
+        extra=0
+    )
+
     if request.method == 'POST':
         # Resume POST form
         form = ResumeForm(request.POST)
 
         # Career POST formset
-        formset = CareerFormSet(request.POST, 
+        career_formset = CareerFormSet(request.POST, 
             prefix='career', 
             queryset=Career.objects.none()
         )
 
-        if form.is_valid() and formset.is_valid():
+        # Education POST formset
+        education_formset = EducationFormSet(request.POST, 
+            prefix='education', 
+            queryset=Education.objects.none()
+        )
+
+        if form.is_valid() and career_formset.is_valid() and education_formset.is_valid():
             # save Resume
             resume = form.save(commit=False)
             resume.user = request.user
             resume.save()
 
             # save Career
-            careers = formset.save(commit=False)
+            careers = career_formset.save(commit=False)
             for career in careers:
                 career.resume = resume
                 career.save()
 
+            # save Education 
+            educations = education_formset.save(commit=False)
+            for education in educations:
+                education.resume = resume
+                education.save()
 
             return redirect('resume:list')
     else:
@@ -48,8 +66,13 @@ def resume_form(request):
         })
 
         # Career GET form
-        formset = CareerFormSet(prefix='career',
+        career_formset = CareerFormSet(prefix='career',
             queryset=Career.objects.none()
+        )
+
+        # Education GET form
+        education_formset = EducationFormSet(prefix='education',
+            queryset=Education.objects.none()
         )
 
     
@@ -59,7 +82,8 @@ def resume_form(request):
 
     return render(request, 'resume/form.html', {
         'form': form,
-        'formset': formset,
+        'career_formset': career_formset,
+        'education_formset': education_formset,
         'date_field_list': ['until', 'since'],
         'svg_dict': svg_dict,
     })

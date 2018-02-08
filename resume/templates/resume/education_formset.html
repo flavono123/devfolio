@@ -1,38 +1,38 @@
-    <!-- CareerFormset Data -->
-    {{ formset.management_form }}
+    <!-- EducationFormset Data -->
+    {{ education_formset.management_form }}
 
-    <!-- Add button -->
-    <a id="add-{{ formset.prefix }}" class="btn btn-default">
+    <!-- Education Formset: Add button -->
+    <a id="add-{{ education_formset.prefix }}" class="btn btn-default">
       <i class="fas fa-plus"></i>
       {# FIXME: using bootstrap class #}
-      <span style="font-size: 2em;">{{ formset.prefix | title }}</span>
+      <span style="font-size: 2em;">{{ education_formset.prefix | title }}</span>
     </a>
  
-    <!-- Career Formset -->
-    <div class="form-set">
-    <!-- Career Formset: Non Form Errors -->
-    {% for error in formset.non_form_errors %} 
+    <!-- Education Formset -->
+    <div class="{{ education_formset.prefix }}-formset">
+    <!-- Education Formset: Non Form Errors -->
+    {% for error in education_formset.non_form_errors %} 
       <p class="text-danger">
         {{ error }}
       </p>
     {% endfor %}
   
-      {% for form in formset %}
-      <!-- Career Forms -->
-        <div class="text-secondary {{ formset.prefix }}-form">
-          <!-- Non field errors -->
+      {% for form in education_formset %}
+      <!-- Education Form -->
+        <div class="text-secondary {{ education_formset.prefix }}-form">
+          <!-- Education: Non field errors -->
           {% for error in form.non_field_errors %}
             <p class="text-danger">
               {{ error }}
             </p>
           {% endfor %}
   
-          <!-- Hidden Fields -->
+          <!-- Education: Hidden Fields -->
           {% for field in form.hidden_fields %}
             {{ field }}
           {% endfor %}
   
-          <!-- Visible Fields -->
+          <!-- Education: Visible Fields -->
           <div class="row">
             {% for field in form.visible_fields %}
                
@@ -44,13 +44,13 @@
 
                 <div class="form-group">
 
-                {% if field.name == 'currently_employed' %}
+                {% if field.name == 'currently_attending' %}
                   <div class="custom-control custom-checkbox">
                 {% endif %}
 
                   {{ field }}
 
-                  {% if field.name == 'currently_employed' %}
+                  {% if field.name == 'currently_attending' %}
                   <label class="custom-control-label" for="{{ field.auto_id }}">
                     {{ field.label }}
                   </label>
@@ -64,7 +64,7 @@
                     {% endfor %}
                   {% endif %}
 
-                  {% if field.name == 'currently_employed' %}
+                  {% if field.name == 'currently_attending' %}
                     </div>
                   {% endif %}
 
@@ -73,31 +73,31 @@
             {% endfor %}
           </div>
 
-          <!-- Close form button -->
-          <a class="btn btn-default close-{{ formset.prefix }} pull-right">
+          <!-- Education: Close form button -->
+          <a class="btn btn-default close-{{ education_formset.prefix }} pull-right">
             <i class="fas fa-times"></i>
           </a>
         </div>
       {% endfor %}
     </div>
   
-    <div class="empty-{{ formset.prefix }}-form" style="display: none">
-      <div class="text-secondary {{ formset.prefix }}-form">
-        {% with formset.empty_form as form %} 
+    <div class="empty-{{ education_formset.prefix }}-form" style="display: none">
+      <div class="text-secondary {{ education_formset.prefix }}-form">
+        {% with education_formset.empty_form as form %} 
  
-          <!-- Non field errors -->
+          <!-- Empty Educaction: Non field errors -->
           {% for error in form.non_field_errors %}
             <p class="text-danger">
               {{ error }}
             </p>
           {% endfor %}
 
-          <!-- Hidden Fields -->
+          <!-- Empty Educaction: Hidden Fields -->
           {% for field in form.hidden_fields %}
             {{ field }}
           {% endfor %}
 
-          <!-- Visible Fields -->
+          <!-- Empty Educaction: Visible Fields -->
           <div class="row">
             {% for field in form.visible_fields %}
               
@@ -109,13 +109,13 @@
               
                 <div class="form-group">
                 
-                {% if field.name == 'currently_employed' %}
+                {% if field.name == 'currently_attending' %}
                   <div class="custom-control custom-checkbox">
                 {% endif %}
                 
                   {{ field }}
                   
-                  {% if field.name == 'currently_employed' %}
+                  {% if field.name == 'currently_attending' %}
                   <label class="custom-control-label" for="{{ field.auto_id }}">
                     {{ field.label }}
                   </label>
@@ -129,7 +129,7 @@
                     {% endfor %}
                   {% endif %}
 
-                {% if field.name == 'currently_employed' %}
+                {% if field.name == 'currently_attending' %}
                   </div>
                 {% endif %}
                 
@@ -139,8 +139,8 @@
           </div>
         {% endwith %}
 
-        <!-- Close form button -->
-        <a class="btn btn-default close-{{ formset.prefix }}">
+        <!-- Empty Educaction: Close form button -->
+        <a class="btn btn-default close-{{ education_formset.prefix }}">
           <i class="fas fa-times"></i>
         </a>
 

@@ -63,17 +63,43 @@ class CareerForm(forms.ModelForm):
 
 
 class EducationForm(forms.ModelForm):
+    since = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '0000.0',
+    }))
+    until = forms.DateField(input_formats=['%Y.%m'], required=False, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '0000.0',
+    }))
     class Meta:
         model = Education
         fields = '__all__'
+        exclude = ('resume',)
         widgets = {
-            'school_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'major': forms.TextInput(attrs={'class': 'form-control'}),
-            'research_content': forms.Textarea(attrs={'class': 'form-control'}),
-            'since': forms.TextInput(attrs={'class': 'form-control'}),
-            'until': forms.TextInput(attrs={'class': 'form-control'}),
-            'currently_employed': forms.CheckboxInput(attrs={'class': 'custom-control-input'}),
+            'school_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'School Name',
+            }),
+            'major': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Major',
+            }),
+            'research_content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Compeletion Courses or Research Content'
+            }),
+            'currently_attending': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input form-control',
+            }),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['currently_attending'] == True:
+            cleaned_data['until'] = timezone.now().date()
+        # Check since < until
+        if cleaned_data['since'] >= cleaned_data['until']:
+            raise ValidationError('"Until" should be later than "Since"')
 
 class AwardForm(forms.ModelForm):
     class Meta:

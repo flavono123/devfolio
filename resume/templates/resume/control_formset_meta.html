@@ -1,0 +1,20 @@
+<script>
+  function updateFormsIndex(el, prefix, ndx) {
+    // FIXME: re-type own style
+    var id_regex = new RegExp('(' + prefix + '-\\d+)');
+    var replacement = prefix + '-' + ndx;
+  
+    // change label's for
+    if ($(el).attr("for")) {
+      $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    }
+    // change id
+    if (el.id) {
+      el.id = el.id.replace(id_regex, replacement);
+    }
+    // change name
+    if (el.name) {
+      el.name = el.name.replace(id_regex, replacement);
+    }
+  }
+</script>

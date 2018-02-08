@@ -30,9 +30,10 @@
 
       {% endfor %}
       <!-- Career Formset -->
-      {% include 'resume/career_form.html' %}
+      {% include 'resume/career_formset.html' %}
   
       <!-- Education Formset -->
+      {% include 'resume/education_formset.html' %}
 
 
       <!-- Award Formset -->
@@ -57,5 +58,7 @@
 {% endblock %}
 
 {% block script %}
-  {% include 'resume/formset_control.html' %}
+  {% include 'resume/control_formset_meta.html' %}
+  {% include 'resume/control_career_formset.html' %}
+  {% include 'resume/control_education_formset.html' %}
 {% endblock %}
