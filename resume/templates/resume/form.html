@@ -7,17 +7,43 @@
     <form action="" method=POST>
       {% csrf_token %}
       
-      {% bootstrap_form form %}
-      <!-- Non Field Errors 
+      <!-- Resume Form  -->
+      <!-- Resume: Non Field Errors -->
       {% for error in form.non_field_errors %}
         <p class="text-danger">
           {{ error }}
         </p>
       {% endfor %}
-      -->
+
+      <!-- Resume: Hidden Fields -->
+      {% for field in form.hidden_fields%}
+        {{ field }}
+      {% endfor %}
+
+      <!-- Resume: Visible Fields -->
+      {% for field in form.visible_fields %}
+
+        {% bootstrap_field field show_label=False size='large' %}
+
+        <p class="help-block">
+        </p>
+
+      {% endfor %}
+      <!-- Career Formset -->
+      {% include 'resume/career_form.html' %}
+  
+      <!-- Education Formset -->
+
+
+      <!-- Award Formset -->
+
+
+      <!-- Link Form -->
+
       <input type="submit" class="btn btn-success btn-lg btn-block" value="Save"/>
     </form>
   </div>
+
   {% for svg in svg_dict.values %}
   <div class="row">
     <div class="col-sm-1">
@@ -28,4 +54,8 @@
   </div>
   {% endfor %}
 </div>
+{% endblock %}
+
+{% block script %}
+  {% include 'resume/formset_control.html' %}
 {% endblock %}

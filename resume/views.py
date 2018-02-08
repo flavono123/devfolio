@@ -9,17 +9,48 @@ from .models import Resume, Career
 
 
 def resume_form(request):
+    # Prepare formsets
+    CareerFormSet = modelformset_factory(Career, 
+        form=CareerForm,
+        max_num=5, 
+        validate_max=True,
+        extra=0
+    )
+
     if request.method == 'POST':
+        # Resume POST form
         form = ResumeForm(request.POST)
-        if form.is_valid():
+
+        # Career POST formset
+        formset = CareerFormSet(request.POST, 
+            prefix='career', 
+            queryset=Career.objects.none()
+        )
+
+        if form.is_valid() and formset.is_valid():
+            # save Resume
             resume = form.save(commit=False)
             resume.user = request.user
             resume.save()
+
+            # save Career
+            careers = formset.save(commit=False)
+            for career in careers:
+                career.resume = resume
+                career.save()
+
+
             return redirect('resume:list')
     else:
+        # Resume GET form
         form = ResumeForm(initial={
             'email': request.user.email,
         })
+
+        # Career GET form
+        formset = CareerFormSet(prefix='career',
+            queryset=Career.objects.none()
+        )
 
     
     svg_json_path = settings.ROOT('devfolio', 'static', 'svg_codes.json')
@@ -28,6 +59,8 @@ def resume_form(request):
 
     return render(request, 'resume/form.html', {
         'form': form,
+        'formset': formset,
+        'date_field_list': ['until', 'since'],
         'svg_dict': svg_dict,
     })
 
