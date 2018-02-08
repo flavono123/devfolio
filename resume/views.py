@@ -10,15 +10,17 @@ from .models import Resume, Career
 
 def resume_form(request):
     if request.method == 'POST':
-        form = ResumeForm(request.POST, request.FILES)
-        form.user = request.user
+        form = ResumeForm(request.POST)
         if form.is_valid():
             resume = form.save(commit=False)
             resume.user = request.user
             resume.save()
             return redirect('resume:list')
     else:
-        form = ResumeForm()
+        form = ResumeForm(initial={
+            'email': request.user.email,
+        })
+
     
     svg_json_path = settings.ROOT('devfolio', 'static', 'svg_codes.json')
     with open(svg_json_path, 'r') as f:
