@@ -43,9 +43,9 @@ class Education(models.Model):
 
 class Award(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    at = models.DateField()
     activity_name = models.CharField(max_length=50)
     detail = models.TextField()
-    at = models.DateField()
 
 class Link(models.Model):
     resume = models.OneToOneField(Resume, on_delete=models.CASCADE)

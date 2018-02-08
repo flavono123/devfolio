@@ -1,0 +1,148 @@
+    <!-- AwardFormset Data -->
+    {{ award_formset.management_form }}
+
+    <!-- Award_Formset: Add button -->
+    <a id="add-{{ award_formset.prefix }}" class="btn btn-default">
+      <i class="fas fa-plus"></i>
+      {# FIXME: using bootstrap class #}
+      <span style="font-size: 2em;">{{ award_formset.prefix | title }}</span>
+    </a>
+ 
+    <!-- Award Formset -->
+    <div class="{{ award_formset.prefix }}-formset">
+    <!-- Award Formset: Non Form Errors -->
+    {% for error in award_formset.non_form_errors %} 
+      <p class="text-danger">
+        {{ error }}
+      </p>
+    {% endfor %}
+  
+      {% for form in award_formset %}
+      <!-- Award Forms -->
+        <div class="text-secondary {{ award_formset.prefix }}-form">
+          <!-- Award: Non field errors -->
+          {% for error in form.non_field_errors %}
+            <p class="text-danger">
+              {{ error }}
+            </p>
+          {% endfor %}
+  
+          <!-- Award: Hidden Fields -->
+          {% for field in form.hidden_fields %}
+            {{ field }}
+          {% endfor %}
+  
+          <!-- Award: Visible Fields -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+               
+              {% if field.name in date_field_list %}
+              <div class="col-sm-2">
+              {% else %}
+              <div class="col-sm-8">
+              {% endif %}
+
+                <div class="form-group">
+
+                {% if field.name == 'currently_employed' %}
+                  <div class="custom-control custom-checkbox">
+                {% endif %}
+
+                  {{ field }}
+
+                  {% if field.name == 'currently_employed' %}
+                  <label class="custom-control-label" for="{{ field.auto_id }}">
+                    {{ field.label }}
+                  </label>
+                  {% endif %}
+
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <p class="text-danger">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+
+                  {% if field.name == 'currently_employed' %}
+                    </div>
+                  {% endif %}
+
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <!-- Award: Close form button -->
+          <a class="btn btn-default close-{{ award_formset.prefix }} pull-right">
+            <i class="fas fa-times"></i>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  
+    <div class="empty-{{ award_formset.prefix }}-form" style="display: none">
+      <div class="text-secondary {{ award_formset.prefix }}-form">
+        {% with award_formset.empty_form as form %} 
+ 
+          <!-- Empty Award: Non field errors -->
+          {% for error in form.non_field_errors %}
+            <p class="text-danger">
+              {{ error }}
+            </p>
+          {% endfor %}
+
+          <!-- Empty Award: Hidden Fields -->
+          {% for field in form.hidden_fields %}
+            {{ field }}
+          {% endfor %}
+
+          <!-- Empty Award: Visible Fields -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+              
+              {% if field.name in date_field_list %}
+              <div class="col-sm-2">
+              {% else %}
+              <div class="col-sm-8">
+              {% endif %}
+              
+                <div class="form-group">
+                
+                {% if field.name == 'currently_employed' %}
+                  <div class="custom-control custom-checkbox">
+                {% endif %}
+                
+                  {{ field }}
+                  
+                  {% if field.name == 'currently_employed' %}
+                  <label class="custom-control-label" for="{{ field.auto_id }}">
+                    {{ field.label }}
+                  </label>
+                  {% endif %}
+                  
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <p class="text-danger">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+
+                {% if field.name == 'currently_employed' %}
+                  </div>
+                {% endif %}
+                
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endwith %}
+
+        <!-- Empty Award: Close form button -->
+        <a class="btn btn-default close-{{ award_formset.prefix }}">
+          <i class="fas fa-times"></i>
+        </a>
+
+      </div>
+    </div>

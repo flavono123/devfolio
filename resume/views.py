@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 import json
 
 from .forms import ResumeForm, CareerForm, EducationForm, AwardForm, LinkForm
-from .models import Resume, Career, Education
+from .models import Resume, Career, Education, Award
 
 
 def resume_form(request):
@@ -19,6 +19,13 @@ def resume_form(request):
 
     EducationFormSet = modelformset_factory(Education, 
         form=EducationForm,
+        max_num=5, 
+        validate_max=True,
+        extra=0
+    )
+
+    AwardFormSet = modelformset_factory(Award, 
+        form=AwardForm,
         max_num=5, 
         validate_max=True,
         extra=0
@@ -39,8 +46,13 @@ def resume_form(request):
             prefix='education', 
             queryset=Education.objects.none()
         )
+        # Award POST formset
+        award_formset = AwardFormSet(request.POST,
+            prefix='award',
+            queryset=Award.objects.none()
+        )
 
-        if form.is_valid() and career_formset.is_valid() and education_formset.is_valid():
+        if form.is_valid() and career_formset.is_valid() and education_formset.is_valid() and award_formset.is_valid():
             # save Resume
             resume = form.save(commit=False)
             resume.user = request.user
@@ -57,6 +69,12 @@ def resume_form(request):
             for education in educations:
                 education.resume = resume
                 education.save()
+
+            # save Award 
+            awards = award_formset.save(commit=False)
+            for award in awards:
+                award.resume = resume
+                award.save()
 
             return redirect('resume:list')
     else:
@@ -75,6 +93,11 @@ def resume_form(request):
             queryset=Education.objects.none()
         )
 
+        # Award GET form
+        award_formset = AwardFormSet(prefix='award',
+            queryset=Award.objects.none()
+        )
+
     
     svg_json_path = settings.ROOT('devfolio', 'static', 'svg_codes.json')
     with open(svg_json_path, 'r') as f:
@@ -84,7 +107,8 @@ def resume_form(request):
         'form': form,
         'career_formset': career_formset,
         'education_formset': education_formset,
-        'date_field_list': ['until', 'since'],
+        'award_formset': award_formset,
+        'date_field_list': ['until', 'since', 'at'],
         'svg_dict': svg_dict,
     })
 

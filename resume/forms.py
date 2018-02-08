@@ -102,13 +102,23 @@ class EducationForm(forms.ModelForm):
             raise ValidationError('"Until" should be later than "Since"')
 
 class AwardForm(forms.ModelForm):
+    at = forms.DateField(input_formats=['%Y.%m'], widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '0000.0',
+    }))
     class Meta:
         model = Award
         fields = '__all__'
+        exclude = ('resume',)
         widgets = {
-            'activity_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'detail': forms.Textarea(attrs={'class': 'form-control'}),
-            'at': forms.TextInput(attrs={'class': 'form-control'}),
+            'activity_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Activity Name',
+            }),
+            'detail': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Detail',
+            }),
         }
 
 class LinkForm(forms.ModelForm):
