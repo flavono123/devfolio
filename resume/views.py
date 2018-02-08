@@ -42,7 +42,8 @@ def career_form(request):
     CareerFormSet = modelformset_factory(Career, 
         form=CareerForm,
         max_num=5, 
-        validate_max=True 
+        validate_max=True,
+        extra=0
     )
     
     if request.method == 'POST':
