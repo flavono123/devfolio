@@ -125,14 +125,35 @@ class LinkForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = '__all__'
+        exclude = ('resume',)
         widgets = {
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'github': forms.TextInput(attrs={'class': 'form-control'}),
-            'stackoverflow': forms.TextInput(attrs={'class': 'form-control'}),
-            'linkedin': forms.TextInput(attrs={'class': 'form-control'}),
-            'facebook': forms.TextInput(attrs={'class': 'form-control'}),
-            'twitter': forms.TextInput(attrs={'class': 'form-control'}),
-            'google_plus': forms.TextInput(attrs={'class': 'form-control'}),
-            'blog': forms.URLInput(attrs={'class': 'form-control'}),
-                
+            'github': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Github ID',
+            }),
+            'stackoverflow': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Stackoverflow URL',
+            }),
+            'linkedin': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Linked URL',
+            }),
+            'facebook': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Facebook ID',
+            }),
+            'twitter': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Twitter ID(except @)',
+            }),
+            'google_plus': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Google+ URL',
+            }),
+            'blog': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Blog URL',
+            })
         }
+

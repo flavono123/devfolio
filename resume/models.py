@@ -49,11 +49,21 @@ class Award(models.Model):
 
 class Link(models.Model):
     resume = models.OneToOneField(Resume, on_delete=models.CASCADE)
-    email = models.EmailField()
-    github = models.CharField(max_length=50, blank=True)
-    stackoverflow = models.CharField(max_length=50, blank=True)
-    linkedin = models.CharField(max_length=50, blank=True)
-    facebook = models.CharField(max_length=50, blank=True)
-    twitter = models.CharField(max_length=50, blank=True)
-    google_plus = models.CharField(max_length=50, blank=True)
+    github = models.CharField(max_length=50, blank=True) # id
+    stackoverflow = models.URLField(blank=True, validators=[ # url 
+        RegexValidator(r'^(https?:\/\/)?stackoverflow\.com\/users\/\d+\/\w+\/?$', 
+            message='Stackoverflow link should be "https://stackoverflow.com/users/<your_id>/<username>/" format')
+    ]) 
+    linkedin = models.URLField(blank=True, validators=[ # url
+        RegexValidator(r'^(https?:\/\/)?www\.linkedin\.com\/in\/\w+\/?$', 
+            message='Linkedin link should be "https://www.linkedin.com/in/<your_id>/" format')
+    ]) 
+    facebook = models.CharField(max_length=50, blank=True) # id
+    twitter = models.CharField(max_length=50, blank=True, validators=[
+        RegexValidator(r'[^@a-zA-Z0-9_]+', message='Enter a valid twitter ID, except leading @')
+        ]) # id (except @)
+    google_plus = models.URLField(blank=True, validators=[
+        RegexValidator(r'^(https?:\/\/)?plus\.google\.com\/w+\/?$', 
+            message='Google+ link should be "https://plus.google.com/<your_id>/" format')
+    ]) 
     blog = models.URLField(blank=True)

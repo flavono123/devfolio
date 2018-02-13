@@ -1,0 +1,184 @@
+        <a class="btn btn-default text-secondary mb-5" data-toggle="collapse" href="#collapseLink" aria-expanded="false" aria-controls="collapseLink">
+          <i class="fas fa-caret-down"></i> 
+          <span style="font-size: 2em;">Links</span>
+        </a>
+
+        <div id="collapseLink" class="collapse">
+          <div class="text-secondary link-form">
+            <!-- Link: Non field errors -->
+            {% for error in link_form.non_field_errors %}
+              <p class="text-danger">
+                {{ error }}
+              </p>
+            {% endfor %}
+          
+            <!-- Link: Hidden Fields -->
+            {% for field in link_form.hidden_fields %}
+              {{ field }}
+            {% endfor %}
+          
+            <!-- Link: Visible Fields -->
+            
+            <!-- Github -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-github mr-3"></i>https://github.com/      
+                      </span>
+                    </div>
+                   {{ link_form.github }}
+                  </div>
+                </div>
+                {% if link_form.github.errors %}
+                  {% for error in link_form.github.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            
+            <!-- Stackoverflow -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-stack-overflow mr-3"></i> 
+                      </span>
+                    </div>
+                    {{ link_form.stackoverflow }}
+                  </div>
+                </div>
+                {% if link_form.stackoverflow.errors %}
+                  {% for error in link_form.stackoverflow.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            
+            <!-- Linked In -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-linkedin-in mr-3"></i> 
+                      </span>
+                    </div>
+                    {{ link_form.linkedin }}
+                  </div>
+                </div>
+                {% if link_form.linkedin.errors %}
+                  {% for error in link_form.linkedin.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            
+            <!-- Facebook -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-facebook-f mr-3"></i>https://www.facebook.com/ 
+                      </span>
+                    </div>
+                    {{ link_form.facebook }}
+                  </div>
+                </div>
+                {% if link_form.facebook.errors %}
+                  {% for error in link_form.facebook.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            
+            <!-- Twitter -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-twitter mr-3"></i>https://twitter.com/ 
+                      </span>
+                    </div>
+                    {{ link_form.twitter }}
+                  </div>
+                </div>
+                {% if link_form.twitter.errors %}
+                  {% for error in link_form.twitter.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          
+            <!-- Goolge + -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fab fa-google-plus-g mr-3"></i>
+                      </span>
+                    </div>
+                    {{ link_form.google_plus }}
+                  </div>
+                </div>
+                {% if link_form.google_plus.errors %}
+                  {% for error in link_form.google_plus.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          
+            <!-- Blog -->
+            <div class="form-row">
+              <div class="col-12">
+                <div class="form-group">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-rss mr-3"></i> 
+                      </span>
+                    </div>
+                    {{ link_form.blog }}
+                  </div>
+                </div>
+                {% if link_form.blog.errors %}
+                  {% for error in link_form.blog.errors %}
+                    <p class="text-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
