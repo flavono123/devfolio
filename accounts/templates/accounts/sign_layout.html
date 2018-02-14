@@ -1,7 +1,6 @@
 {% extends 'accounts/layout.html' %}
 {% load static %}
 
-
 {% block content %}
   {% if not user.is_authenticated %}
 
@@ -28,7 +27,9 @@
           <!-- Visible Fields -->
           {% for field in form.visible_fields %}
             <div class="form-label-group">
-              {{ field }}
+              <div class="input-group input-group-lg mb-1">
+                {{ field }}
+              </div>
               {% if field.errors %}
                 {% for error in field.errors %}
                   <p class="text-danger">
@@ -36,7 +37,6 @@
                   </p>
                 {% endfor %}
               {% endif %}
-              <br/>
             </div>
           {% endfor %}
 
