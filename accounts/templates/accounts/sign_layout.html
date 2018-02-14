@@ -1,4 +1,5 @@
 {% extends 'accounts/layout.html' %}
+{% load static %}
 
 
 {% block content %}
@@ -9,7 +10,7 @@
         <form class="form-signin" action="" method="post">
           {% csrf_token %}
           <div class="text-center mb-4">
-            <h1 class="logo">Devfolio</h1>
+            <img src="{% static 'images/devfolio-logo.png'%}" alt="logo">
           </div>
 
           <!-- Non field errors -->
