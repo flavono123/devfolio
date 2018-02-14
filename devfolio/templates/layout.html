@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{% static 'custom/logo.css' %}">
   <link id="favicon" rel="icon" type="image/png" sizes="32x32" href="{% static 'images/devfolio-favicon.png'%}">
 
-  <script defer src="{% static 'fontawesome-5/fontawesome-all.js' %}"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <style>
   svg {
     width: 80px;
@@ -87,8 +87,9 @@
   </footer>
 
   <!-- JS 로드 -->
-  <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
-  <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+
 
   {% block script %}
   {% endblock %}
