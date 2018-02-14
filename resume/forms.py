@@ -49,7 +49,7 @@ class CareerForm(forms.ModelForm):
                 'placeholder': 'Major Achievement',
             }),
             'currently_employed': forms.CheckboxInput(attrs={
-                'class': 'custom-control-input form-control',
+                'class': 'custom-control-input form-control float-left',
             }),
         }
 

@@ -33,29 +33,27 @@
           {% endfor %}
   
           <!-- Award: Visible Fields -->
+          
+          <!-- Award: The First Row -->
           <div class="row">
+            <div class="col-sm-10 order-sm-12">
+              <!-- Empty Award: Close form button -->
+              <a class="btn btn-default float-right close-{{ award_formset.prefix }}">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
             {% for field in form.visible_fields %}
-               
-              {% if field.name in date_field_list %}
-              <div class="col-sm-2">
-              {% else %}
-              <div class="col-sm-8">
-              {% endif %}
-
-                <div class="form-group">
-
-                {% if field.name == 'currently_employed' %}
-                  <div class="custom-control custom-checkbox">
+              
+              {% if field.name in first_row_field_list %}
+                {% if field.name in date_field_list %}
+                <div class="col-sm-2">
+                {% else %}
                 {% endif %}
-
+              
+                <div class="form-group">
+                
                   {{ field }}
-
-                  {% if field.name == 'currently_employed' %}
-                  <label class="custom-control-label" for="{{ field.auto_id }}">
-                    {{ field.label }}
-                  </label>
-                  {% endif %}
-
+                  
                   {% if field.errors %}
                     {% for error in field.errors %}
                       <p class="text-danger">
@@ -63,22 +61,39 @@
                       </p>
                     {% endfor %}
                   {% endif %}
-
-                  {% if field.name == 'currently_employed' %}
-                    </div>
-                  {% endif %}
-
+                
                 </div>
               </div>
+              {% endif %}
             {% endfor %}
-          </div>
+          </div> <!-- Award: End of the First Row -->
 
-          <!-- Award: Close form button -->
-          <a class="btn btn-default close-{{ award_formset.prefix }} pull-right">
-            <i class="fas fa-times"></i>
-          </a>
+          <!-- Award: The Other Rows -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+
+              {% if field.name not in first_row_field_list %}
+              <div class="col-sm-12 mb-3">
+
+                {{ field }}
+
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="text-danger">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+              </div>
+              {% endif %}
+
+            {% endfor %}
+          </div> <!-- Award: End of the Other Rows -->
+
         </div>
       {% endfor %}
+
     </div>
   
     <div class="empty-{{ award_formset.prefix }}-form" style="display: none">
@@ -98,28 +113,26 @@
           {% endfor %}
 
           <!-- Empty Award: Visible Fields -->
+
+          <!-- Empty Award: The First Row -->
           <div class="row">
+            <div class="col-sm-10 order-sm-12">
+              <!-- Empty Award: Close form button -->
+              <a class="btn btn-default float-right close-{{ award_formset.prefix }}">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
             {% for field in form.visible_fields %}
               
-              {% if field.name in date_field_list %}
-              <div class="col-sm-2">
-              {% else %}
-              <div class="col-sm-8">
-              {% endif %}
+              {% if field.name in first_row_field_list %}
+                {% if field.name in date_field_list %}
+                <div class="col-sm-2">
+                {% else %}
+                {% endif %}
               
                 <div class="form-group">
                 
-                {% if field.name == 'currently_employed' %}
-                  <div class="custom-control custom-checkbox">
-                {% endif %}
-                
                   {{ field }}
-                  
-                  {% if field.name == 'currently_employed' %}
-                  <label class="custom-control-label" for="{{ field.auto_id }}">
-                    {{ field.label }}
-                  </label>
-                  {% endif %}
                   
                   {% if field.errors %}
                     {% for error in field.errors %}
@@ -128,21 +141,38 @@
                       </p>
                     {% endfor %}
                   {% endif %}
-
-                {% if field.name == 'currently_employed' %}
-                  </div>
-                {% endif %}
                 
                 </div>
               </div>
+              {% endif %}
             {% endfor %}
-          </div>
+          </div> <!-- Empty Award: End of the First Row -->
+
+          <!-- Empty Award: The Other Rows -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+
+              {% if field.name not in first_row_field_list %}
+              <div class="col-sm-12 mb-3">
+
+                {{ field }}
+
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="text-danger">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+              </div>
+              {% endif %}
+
+            {% endfor %}
+          </div> <!-- Empty Award: End of the Other Rows -->
+
         {% endwith %}
 
-        <!-- Empty Award: Close form button -->
-        <a class="btn btn-default close-{{ award_formset.prefix }}">
-          <i class="fas fa-times"></i>
-        </a>
 
       </div>
     </div>

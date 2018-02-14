@@ -33,82 +33,27 @@
           {% endfor %}
   
           <!-- Education: Visible Fields -->
+
+          <!-- Education: The First Row -->
           <div class="row">
+            <div class="col-sm-1 order-sm-12">
+              <!-- Empty Education: Close form button -->
+              <a class="btn btn-default float-right close-{{ education_formset.prefix }}">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
             {% for field in form.visible_fields %}
-               
-              {% if field.name in date_field_list %}
-              <div class="col-sm-2">
-              {% else %}
-              <div class="col-sm-8">
-              {% endif %}
-
-                <div class="form-group">
-
-                {% if field.name == 'currently_attending' %}
-                  <div class="custom-control custom-checkbox">
+              
+              {% if field.name in first_row_field_list %}
+                {% if field.name in date_field_list %}
+                <div class="col-sm-2">
+                {% elif field.name == 'currently_attending'%}
+                <div class="col-sm-7">
+                {% else %}
                 {% endif %}
-
-                  {{ field }}
-
-                  {% if field.name == 'currently_attending' %}
-                  <label class="custom-control-label" for="{{ field.auto_id }}">
-                    {{ field.label }}
-                  </label>
-                  {% endif %}
-
-                  {% if field.errors %}
-                    {% for error in field.errors %}
-                      <p class="text-danger">
-                        {{ error }}
-                      </p>
-                    {% endfor %}
-                  {% endif %}
-
-                  {% if field.name == 'currently_attending' %}
-                    </div>
-                  {% endif %}
-
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-
-          <!-- Education: Close form button -->
-          <a class="btn btn-default close-{{ education_formset.prefix }} pull-right">
-            <i class="fas fa-times"></i>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-  
-    <div class="empty-{{ education_formset.prefix }}-form" style="display: none">
-      <div class="text-secondary {{ education_formset.prefix }}-form">
-        {% with education_formset.empty_form as form %} 
- 
-          <!-- Empty Educaction: Non field errors -->
-          {% for error in form.non_field_errors %}
-            <p class="text-danger">
-              {{ error }}
-            </p>
-          {% endfor %}
-
-          <!-- Empty Educaction: Hidden Fields -->
-          {% for field in form.hidden_fields %}
-            {{ field }}
-          {% endfor %}
-
-          <!-- Empty Educaction: Visible Fields -->
-          <div class="row">
-            {% for field in form.visible_fields %}
-              
-              {% if field.name in date_field_list %}
-              <div class="col-sm-2">
-              {% else %}
-              <div class="col-sm-8">
-              {% endif %}
               
                 <div class="form-group">
-                
+
                 {% if field.name == 'currently_attending' %}
                   <div class="custom-control custom-checkbox">
                 {% endif %}
@@ -135,14 +80,130 @@
                 
                 </div>
               </div>
+              {% endif %}
             {% endfor %}
-          </div>
-        {% endwith %}
+          </div> <!-- Education: End of the First Row -->
 
-        <!-- Empty Educaction: Close form button -->
-        <a class="btn btn-default close-{{ education_formset.prefix }}">
-          <i class="fas fa-times"></i>
-        </a>
+          <!-- Education: The Other Rows -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+
+              {% if field.name not in first_row_field_list %}
+              <div class="col-sm-12 mb-3">
+
+                {{ field }}
+
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="text-danger">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+              </div>
+              {% endif %}
+
+            {% endfor %}
+          </div> <!-- Education: End of the Other Rows -->
+
+
+        </div>
+      {% endfor %}
+    </div>
+  
+    <div class="empty-{{ education_formset.prefix }}-form" style="display: none">
+      <div class="text-secondary {{ education_formset.prefix }}-form">
+        {% with education_formset.empty_form as form %} 
+ 
+          <!-- Empty Educaction: Non field errors -->
+          {% for error in form.non_field_errors %}
+            <p class="text-danger">
+              {{ error }}
+            </p>
+          {% endfor %}
+
+          <!-- Empty Educaction: Hidden Fields -->
+          {% for field in form.hidden_fields %}
+            {{ field }}
+          {% endfor %}
+
+          <!-- Empty Educaction: Visible Fields -->
+
+          <!-- Empty Education: The First Row -->
+          <div class="row">
+            <div class="col-sm-1 order-sm-12">
+              <!-- Empty Education: Close form button -->
+              <a class="btn btn-default float-right close-{{ education_formset.prefix }}">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
+            {% for field in form.visible_fields %}
+              
+              {% if field.name in first_row_field_list %}
+                {% if field.name in date_field_list %}
+                <div class="col-sm-2">
+                {% elif field.name == 'currently_attending'%}
+                <div class="col-sm-7">
+                {% else %}
+                {% endif %}
+              
+                <div class="form-group">
+
+                {% if field.name == 'currently_attending' %}
+                  <div class="custom-control custom-checkbox">
+                {% endif %}
+                
+                  {{ field }}
+                  
+                  {% if field.name == 'currently_attending' %}
+                  <label class="custom-control-label" for="{{ field.auto_id }}">
+                    {{ field.label }}
+                  </label>
+                  {% endif %}
+                  
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <p class="text-danger">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+
+                {% if field.name == 'currently_attending' %}
+                  </div>
+                {% endif %}
+                
+                </div>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div> <!-- Empty Education: End of the First Row -->
+
+          <!-- Empty Education: The Other Rows -->
+          <div class="row">
+            {% for field in form.visible_fields %}
+
+              {% if field.name not in first_row_field_list %}
+              <div class="col-sm-12 mb-3">
+
+                {{ field }}
+
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="text-danger">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              {% endif %}
+
+              </div>
+              {% endif %}
+
+            {% endfor %}
+          </div> <!-- Empty Education: End of the Other Rows -->
+
+        {% endwith %}
 
       </div>
     </div>

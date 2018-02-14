@@ -121,6 +121,7 @@ def resume_form(request):
         'education_formset': education_formset,
         'award_formset': award_formset,
         'link_form': link_form,
+        'first_row_field_list': ['until', 'since', 'at', 'currently_employed', 'currently_attending'],
         'date_field_list': ['until', 'since', 'at'],
         'svg_dict': svg_dict,
     })
