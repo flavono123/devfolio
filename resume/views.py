@@ -2,7 +2,7 @@ from django.conf import settings
 from django.forms.models import modelformset_factory
 from django.shortcuts import render, redirect
 
-import json
+import pickle
 
 from .forms import ResumeForm, CareerForm, EducationForm, AwardForm, LinkForm
 from .models import Resume, Career, Education, Award, Link
@@ -110,7 +110,10 @@ def resume_form(request):
         # Link GET form
         link_form = LinkForm()
 
-    
+    # Load devicon name list from the pickle file
+    pkl_file = settings.ROOT('devfolio', 'static', 'devicon_name_list.pkl')
+    with open(pkl_file, 'rb') as f:
+        devicon_name_list = pickle.load(f)
 
     return render(request, 'resume/form.html', {
         'form': form,
@@ -120,6 +123,7 @@ def resume_form(request):
         'link_form': link_form,
         'first_row_field_list': ['until', 'since', 'at', 'currently_employed', 'currently_attending'],
         'date_field_list': ['until', 'since', 'at'],
+        'devicon_name_list': devicon_name_list,
     })
 
 def resume_list(request):
