@@ -111,9 +111,6 @@ def resume_form(request):
         link_form = LinkForm()
 
     
-    svg_json_path = settings.ROOT('devfolio', 'static', 'svg_codes.json')
-    with open(svg_json_path, 'r') as f:
-        svg_dict = json.load(f)
 
     return render(request, 'resume/form.html', {
         'form': form,
@@ -123,7 +120,6 @@ def resume_form(request):
         'link_form': link_form,
         'first_row_field_list': ['until', 'since', 'at', 'currently_employed', 'currently_attending'],
         'date_field_list': ['until', 'since', 'at'],
-        'svg_dict': svg_dict,
     })
 
 def resume_list(request):

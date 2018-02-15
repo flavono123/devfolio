@@ -45,15 +45,6 @@
     </form>
   </div>
 
-  {% for svg in svg_dict.values %}
-  <div class="row">
-    <div class="col-sm-1">
-        {% autoescape off %}
-          {{ svg }}
-        {% endautoescape %}
-    </div>
-  </div>
-  {% endfor %}
 </div>
 {% endblock %}
 
