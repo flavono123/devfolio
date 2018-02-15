@@ -47,6 +47,7 @@ class CareerForm(forms.ModelForm):
             'achievement': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Major Achievement',
+                'rows': 3,
             }),
             'currently_employed': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input form-control float-left',
@@ -86,7 +87,8 @@ class EducationForm(forms.ModelForm):
             }),
             'research_content': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Compeletion Courses or Research Content'
+                'placeholder': 'Compeletion Courses or Research Content',
+                'rows': 3,
             }),
             'currently_attending': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input form-control',
@@ -118,6 +120,7 @@ class AwardForm(forms.ModelForm):
             'detail': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Detail',
+                'rows': 3,
             }),
         }
 
