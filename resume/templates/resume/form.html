@@ -2,48 +2,49 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="row">
-  <div class="col-12">
-    <form action="" method=POST>
-      {% csrf_token %}
-      
-      <!-- Resume Form  -->
-      <!-- Resume: Non Field Errors -->
-      {% for error in form.non_field_errors %}
-        <p class="text-danger">
-          {{ error }}
-        </p>
-      {% endfor %}
+<form action="" method=POST>
+  {% csrf_token %}
+  
+  <!-- Resume Form  -->
+  <!-- Resume: Non Field Errors -->
+  {% for error in form.non_field_errors %}
+    <p class="text-danger">
+      {{ error }}
+    </p>
+  {% endfor %}
 
-      <!-- Resume: Hidden Fields -->
-      {% for field in form.hidden_fields%}
-        {{ field }}
-      {% endfor %}
+  <!-- Resume: Hidden Fields -->
+  {% for field in form.hidden_fields%}
+    {{ field }}
+  {% endfor %}
 
-      <!-- Resume: Visible Fields -->
-      {% for field in form.visible_fields %}
-
+  <!-- Resume: Visible Fields -->
+  {% for field in form.visible_fields %}
+    <div class="row">
+      <div class="col-sm-12">
         {% bootstrap_field field show_label=False size='large' %}
 
         <p class="help-block">
         </p>
 
-      {% endfor %}
-      <!-- Career Formset -->
-      {% include 'resume/career_formset.html' %}
-  
-      <!-- Education Formset -->
-      {% include 'resume/education_formset.html' %}
+      </div>
+    </div>
+        
+  {% endfor %}
+  <!-- Career Formset -->
+  {% include 'resume/career_formset.html' %}
 
-      <!-- Award Formset -->
-      {% include 'resume/award_formset.html' %}
+  <!-- Education Formset -->
+  {% include 'resume/education_formset.html' %}
 
-      <!-- Link Form -->
-      {% include 'resume/link_form.html' %}
+  <!-- Award Formset -->
+  {% include 'resume/award_formset.html' %}
+  <input type="submit" class="btn btn-success btn-lg btn-block mb-3" value="Save"/>
+</form>
 
-      <input type="submit" class="btn btn-success btn-lg btn-block mb-3" value="Save"/>
-    </form>
-  </div>
+
+  <!-- Link Form -->
+  {% include 'resume/link_form.html' %}
 
   <!-- Devicon list -->
   {% for devicon_name in devicon_name_list %}
