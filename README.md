@@ -20,6 +20,7 @@ Design is inspired by Ricardo García Vega's [Phoenix Trello app](https://phoeni
 * Python/Django
 * Bootstrap
 * Jquery
+
 (Will be deployed in Heroku)
 
 ## Status 
