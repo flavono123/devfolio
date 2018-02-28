@@ -7,7 +7,6 @@ from .forms import LoginForm
 
 
 urlpatterns = [
-    path('profile/', views.profile, name='profile'),
     path('signup/', views.signup, name='signup'),
     path('login/', auth_views.login, name='login', kwargs={
         'template_name': 'accounts/login.html',

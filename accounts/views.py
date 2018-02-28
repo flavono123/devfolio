@@ -21,9 +21,6 @@ def signup(request):
         'form': form,
     })
 
-def profile(request):
-    return render(request, 'accounts/profile.html')
-
 def identicon(request):
     identicon = Identicon.render(request.user.email)
     image = Image.open(io.BytesIO(identicon))
