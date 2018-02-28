@@ -3,3 +3,4 @@ neovim
 django-extenstions
 ipython
 jupyter
+django-debug-toolbar
