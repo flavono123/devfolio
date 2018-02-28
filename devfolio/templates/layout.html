@@ -56,7 +56,9 @@
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <a class="btn btn-nav btn-outline-secondary my-2 my-sm-0" href="#" role="button">{{ user.first_name }} {{ user.last_name }}</a>
+          <a class="btn btn-nav btn-outline-secondary my-2 my-sm-0" href="#" role="button">
+            <img width="25px" height="25px" src="{% url 'identicon' %}" alt="identicon.png"/>
+            {{ user.first_name }} {{ user.last_name }}</a>
           <a class="btn btn-nav btn-outline-secondary my-2 my-sm-0" href="{% url 'logout' %}" role="button"><i class="fas fa-sign-out-alt"></i> Sign out</a>
         </form>
       </div>

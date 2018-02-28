@@ -16,4 +16,5 @@ urlpatterns = [
     path('logout/', auth_views.logout, name='logout', kwargs={
         'next_page': settings.LOGIN_URL,
     }),
+    path('identicon.png', views.identicon, name="identicon"),
 ]
