@@ -1,12 +1,20 @@
 from django.conf import settings
 from django.forms.models import modelformset_factory
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 
 import pickle
 
 from .forms import ResumeForm, CareerForm, EducationForm, AwardForm, LinkForm
 from .models import Resume, Career, Education, Award, Link
 
+
+def resume_detail(request, id):
+    resume = get_object_or_404(Resume, id=id)
+    if request.user != resume.user:
+        return HttpResponse('No Permission')
+
+    return render(request, 'resume/detail.html')
 
 def resume_form(request):
     # Prepare formsets

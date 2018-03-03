@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.forms import ValidationError
 from django.core.validators import RegexValidator
+from django.shortcuts import resolve_url
 
 import re
 
@@ -22,6 +23,9 @@ class Resume(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return resolve_url('resume:detail', self.id)
 
 class Career(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
