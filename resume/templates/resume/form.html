@@ -46,9 +46,11 @@
 </form>
 
   <!-- Devicon list -->
-  {% for devicon_name in devicon_name_list %}
-    {{ devicon_name }}
-  {% endfor %}
+      {% for devicon_name in devicon_name_list %}
+      {# TODO: render devicons whose class is original or etc(currently not rendered)#}
+        <i class="devicon-{{ devicon_name }}-plain" style="font-size: 3em;"></i>
+      {% endfor %}
+  </div>
 
 </div>
 {% endblock %}
