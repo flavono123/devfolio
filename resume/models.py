@@ -60,7 +60,7 @@ class Link(models.Model):
     ]) 
     facebook = models.CharField(max_length=50, blank=True) # id
     twitter = models.CharField(max_length=50, blank=True, validators=[
-        RegexValidator(r'[^@a-zA-Z0-9_]+', message='Enter a valid twitter ID, except leading @')
+        RegexValidator(r'^[^@][a-zA-Z0-9_]+', message='Enter a valid twitter ID, except leading @')
         ]) # id (except @)
     google_plus = models.URLField(blank=True, validators=[
         RegexValidator(r'^(https?:\/\/)?plus\.google\.com\/w+\/?$', 
