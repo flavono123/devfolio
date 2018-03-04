@@ -2,6 +2,7 @@ from django.conf import settings
 from django.forms.models import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.views.generic import DetailView
 
 import pickle
 
@@ -14,7 +15,9 @@ def resume_detail(request, id):
     if request.user != resume.user:
         return HttpResponse('No Permission')
 
-    return render(request, 'resume/detail.html')
+    return render(request, 'resume/detail.html', {
+        'resume': resume,
+    })
 
 def resume_form(request):
     # Prepare formsets

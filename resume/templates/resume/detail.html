@@ -1,1 +1,142 @@
-resume/detail.html
+{% extends 'resume/layout.html' %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>{{ resume.title }}</h1>
+    <p class="lead">{{ resume.about_me }}</p>
+    <hr class="my-4"/>
+    <p class="lead">{{ resume.phone_number }}<p>
+    <p class="lead">{{ resume.email }}<p>
+  </div>
+
+  {% with resume.career_set.all as careers %}
+    {% if careers %}
+    <div class="jumbotron">
+      <h2>Careers</h2>
+      {% for career in careers %}
+      <hr class="my-4"/>
+
+      <div class="row">
+        <div class="col-sm-3 order-sm-12">
+          <p>
+            <strong>
+              {{ career.since }} -
+              {{ career.until }}
+            </strong>
+          </p>
+        </div>
+
+        <div class="col-sm-9 order-sm-0">
+          <h4>{{ career.company }}</h4>
+          <p class="lead">{{ career.position }}</p>
+          <p>{{ career.achievement | linebreaks }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  {% with resume.education_set.all as educations %}
+    {% if educations %}
+    <div class="jumbotron">
+      <h2>Educations</h2>
+
+      {% for education in educations %}
+      <hr class="my-4"/>
+
+      <div class="row">
+        <div class="col-sm-3 order-sm-12">
+          <p>
+            <strong>
+              {{ education.since }} -
+              {{ education.until }}
+            </strong>
+          </p>
+        </div>
+
+        <div class="col-sm-9 order-sm-0">
+          <h4>{{ education.school_name }}</h4>
+          <p class="lead">{{ education.major }}</p>
+          <p>{{ education.research_content | linebreaks }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  {% with resume.award_set.all as awards %}
+    {% if awards %}
+    <div class="jumbotron">
+      <h2>Awards</h2>
+
+      {% for award in awards %}
+      <hr class="my-4"/>
+
+      <div class="row">
+        <div class="col-sm-3 order-sm-12">
+          <p>
+            <strong>{{ award.at }}</strong>
+          </p>
+        </div>
+
+        <div class="col-sm-9 order-sm-0">
+          <h4>{{ award.activity_name }}</h4>
+          <p class="lead">{{ award.detail | linebreaks }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  {% with resume.link as link %}
+    <div class="jumbotron">
+      <h1 class="display-4">Link</h1>
+
+      {% if link.github != "" %}
+      <a href="https://github.com/{{ link.github }}" class="btn btn-outline-secondary mr-3">
+        <i class="fab fa-github" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+
+      {% if link.stackoverflow != "" %} 
+      <a href="{{ link.stackoverflow }}" class="btn btn-outline-secondary mr-3">
+        <i class="fab fa-stack-overflow" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+
+      {% if link.linkedin %}
+      <a href="{{ link.linkedin }}" class="btn btn-outline-secondary mr-3">
+        <i class="fab fa-linkedin" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+
+      {% if link.facebook %}
+      <a href="https://facebook.com/{{ link.facebook }}" class="btn btn-outline-secondary mr-3">
+        <i class="fab fa-facebook" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+      
+      {% if link.twitter %}
+      <a href="https://twitter.com/{{ link.twitter }}" class="btn btn-outline-secondary mr-3">
+        <i class="fab fa-twitter" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+       
+      {% if link.google_plus %}
+      <a href="{{ link.google_plus }}" class="btn btn-outline-secondary mr-3">
+        <i class="fab fa-google-plus" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+
+
+      {% if link.blog %}
+      <a href="{{ link.blog }}" class="btn btn-outline-secondary mr-3">
+        <i class="fas fa-rss" style="font-size: 3em;"></i>
+      </a>
+      {% endif %}
+    </div>
+  {% endwith %}
+{% endblock %}
