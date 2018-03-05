@@ -38,7 +38,7 @@
               {{ resume.created_at | date:'Y.m.d' }}
             </p>
             <a class="btn btn-default float-right" href="">Edit</a>
-            <a class="btn btn-default float-right" href="">View</a>
+            <a class="btn btn-default float-right" href="{% url 'resume:detail' resume.id %}">View</a>
           </div>
         </div>
       </div>
